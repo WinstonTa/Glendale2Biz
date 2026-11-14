@@ -37,7 +37,7 @@ function formatDistance(m: number): string {
 export function VerdictGem({ status }: { status: VerdictStatus }) {
   const s = VERDICT_STYLE[status];
   return (
-    <svg viewBox="0 0 64 64" className="verdict-gem h-20 w-20 shrink-0" aria-hidden="true">
+    <svg viewBox="0 0 64 64" className="verdict-gem h-16 w-16 shrink-0 sm:h-20 sm:w-20" aria-hidden="true">
       <polygon points="16,6 48,6 60,24 32,60 4,24" fill={s.fg} />
       <polygon points="16,6 48,6 40,24 24,24" fill="#fff" opacity="0.28" />
       <polygon points="4,24 24,24 32,60" fill="#000" opacity="0.14" />
@@ -147,10 +147,10 @@ export function SiteResults({
         className="print-plain rounded-3xl border-2 p-5 sm:p-6"
         style={{ borderColor: v.fg, background: v.wash }}
       >
-        <div className="flex items-start gap-4">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:gap-4">
           <VerdictGem status={r.verdict.status} />
           <div className="min-w-0">
-            <h3 id="verdict-title" className="text-3xl font-extrabold sm:text-4xl" style={{ color: v.deep }}>
+            <h3 id="verdict-title" className="text-3xl font-extrabold [overflow-wrap:anywhere] sm:text-4xl" style={{ color: v.deep }}>
               {d.verdict[r.verdict.status]}
             </h3>
             <p className="mt-2 text-lg">{lt(r.verdict.summary)}</p>

@@ -196,7 +196,7 @@ export function Wizard() {
               <div className="flex flex-wrap items-center justify-between gap-3 border-b border-line pb-4">
                 <div>
                   <p className="text-sm font-semibold text-ink-soft">{d.resultsFor}</p>
-                  <p className="font-display text-2xl font-extrabold">
+                  <p className="font-display text-xl font-extrabold [overflow-wrap:anywhere] sm:text-2xl">
                     {business ? (
                       <>
                         <span aria-hidden="true">{business.icon} </span>
