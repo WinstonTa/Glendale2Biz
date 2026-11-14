@@ -191,9 +191,12 @@ export function parseHazards(payload: unknown): { kind: HazardKind; status: Haza
   const found = new Map<HazardKind, { status: HazardStatus; detail?: string }>();
   const consider = (label: string, v: unknown) => {
     const kind = hazardKindOf(label);
-    if (!kind || found.has(kind)) return;
+    if (!kind) return;
     const r = interpret(v);
-    if (r.status !== "unavailable") found.set(kind, r);
+    if (r.status === "unavailable") return;
+    // Several sub-layers can map to one kind (fault + liquefaction ⇒ seismic): any in_zone wins.
+    const prev = found.get(kind);
+    if (!prev || (prev.status === "not_in_zone" && r.status === "in_zone")) found.set(kind, r);
   };
   const root = isObj(payload) && isObj(pick(payload, "hazards")) ? (pick(payload, "hazards") as Obj) : payload;
   if (isObj(root)) for (const [k, v] of Object.entries(root)) if (!Array.isArray(v) || k !== "hazards") consider(k, v);
