@@ -16,7 +16,7 @@ export const es: Dict = {
   pickHelp: "Elija la opción más parecida. Puede cambiarla después.",
   groupStorefront: "Locales y servicios",
   groupTech: "Tecnología y en línea",
-  describeLabel: "O describa su idea",
+  describeLabel: "Describa su idea",
   describePlaceholder: "p. ej. una panadería pequeña que vende pasteles en línea",
   describeMatches: "Las opciones que mejor coinciden están resaltadas.",
   describeNoMatch: "Aún no hay coincidencias — elija la tarjeta más cercana.",

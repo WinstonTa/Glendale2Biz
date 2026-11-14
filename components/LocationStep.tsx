@@ -71,7 +71,7 @@ export function LocationStep({
                 <li key={a.address}>
                   <button
                     type="button"
-                    className="chip"
+                    className="chip text-left"
                     onClick={() => {
                       onAddress(a.address);
                       onMode("address");
@@ -79,12 +79,14 @@ export function LocationStep({
                     }}
                   >
                     <span aria-hidden="true">📍</span>
-                    {a.address}
-                    {a.label ? (
-                      <span className="font-normal text-ink-soft">
-                        ({typeof a.label === "string" ? a.label : lt(a.label)})
-                      </span>
-                    ) : null}
+                    <span className="flex flex-col leading-tight py-1">
+                      <span className="whitespace-nowrap">{a.address.split(",")[0]}</span>
+                      {a.label ? (
+                        <span className="text-xs font-normal text-ink-soft">
+                          {typeof a.label === "string" ? a.label : lt(a.label)}
+                        </span>
+                      ) : null}
+                    </span>
                   </button>
                 </li>
               ))}

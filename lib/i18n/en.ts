@@ -15,7 +15,7 @@ export const en = {
   pickHelp: "Choose the closest match. You can change it later.",
   groupStorefront: "Storefront & services",
   groupTech: "Tech & online",
-  describeLabel: "Or describe your idea",
+  describeLabel: "Describe your idea",
   describePlaceholder: "e.g. a small bakery that sells cakes online",
   describeMatches: "Best matches for your idea are highlighted.",
   describeNoMatch: "No close match yet — pick the nearest card above.",
