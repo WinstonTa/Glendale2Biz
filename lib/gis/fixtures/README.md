@@ -12,4 +12,4 @@ Coordinates are approximate. Zones, hazards and some nearby names are illustrati
 The same list is exported, client-safe, as `DEMO_ADDRESSES` from `@/lib/gis/demo`.
 
 Mock matching: a street-number + street-name match picks a fixture. A ZIP outside 912xx, or another city name, returns `OUTSIDE_GLENDALE`.
-Text with no street number returns `ADDRESS_NOT_FOUND`. Any other plausible address falls back to the fixture on the same street (or City Hall), with a warning in `meta.warnings`.
+Text with no street number returns `ADDRESS_NOT_FOUND`. Any other plausible address returns `AMBIGUOUS_ADDRESS` (HTTP 409) with `candidates` = the three demo addresses. Mock mode never answers a non-demo address with another address's data.

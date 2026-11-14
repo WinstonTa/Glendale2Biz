@@ -74,11 +74,12 @@ export function mockLookup(address: string): GisLookup {
   const exact = FIXTURES.find((f) => f.aliases.some((al) => a === al || a.startsWith(`${al} `)));
   if (exact) return toLookup(exact, []);
 
-  const sameStreet = FIXTURES.find((f) => a.includes(f.street));
-  const fallback = sameStreet ?? FIXTURES[0];
-  return toLookup(fallback, [
-    `Demo mode: "${address}" is not in the demo set, so we are showing demo data for ${fallback.matched}. Live GIS lookups are off.`,
-  ]);
+  // Honest demo mode: never answer a non-demo address with another address's data.
+  throw new GisError(
+    "AMBIGUOUS_ADDRESS",
+    "Demo mode only covers these demo addresses. Pick one, or turn on live GIS lookups.",
+    FIXTURES.map((f) => f.matched),
+  );
 }
 
 export const mockProvider: GisProvider = {
