@@ -46,6 +46,8 @@ export const en = {
   editLocation: "Change location",
   demoData: "Demo data",
   demoDataHelp: "Sample records, not a live city lookup.",
+  warningsTitle: "Data notes",
+  demoCandidates: "Demo mode covers these Glendale addresses. Pick one to see a sample result:",
   liveData: "Live City of Glendale GIS",
   verdict: {
     allowed: "Likely allowed",

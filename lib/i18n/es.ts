@@ -45,6 +45,8 @@ export const es: Dict = {
   editLocation: "Cambiar ubicación",
   demoData: "Datos de demostración",
   demoDataHelp: "Registros de ejemplo, no una consulta en vivo a la ciudad.",
+  warningsTitle: "Notas sobre los datos",
+  demoCandidates: "El modo de demostración cubre estas direcciones de Glendale. Elija una para ver un resultado de ejemplo:",
   liveData: "SIG de la Ciudad de Glendale en vivo",
   verdict: {
     allowed: "Probablemente permitido",

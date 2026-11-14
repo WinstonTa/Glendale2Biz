@@ -28,6 +28,7 @@ function isLocale(v: unknown): v is Locale {
 
 export function LocaleProvider({ children }: { children: React.ReactNode }) {
   const [locale, setLocaleState] = useState<Locale>("en");
+  const [ready, setReady] = useState(false);
 
   useEffect(() => {
     try {
@@ -36,11 +37,13 @@ export function LocaleProvider({ children }: { children: React.ReactNode }) {
     } catch {
       /* storage unavailable */
     }
+    setReady(true);
   }, []);
 
   useEffect(() => {
-    document.documentElement.lang = locale;
-  }, [locale]);
+    // wait until the saved locale is read so we don't flip an early-set lang back to "en"
+    if (ready) document.documentElement.lang = locale;
+  }, [locale, ready]);
 
   const setLocale = useCallback((l: Locale) => {
     setLocaleState(l);

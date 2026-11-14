@@ -13,11 +13,21 @@ export const metadata: Metadata = {
   description: "From idea to open doors: check your Glendale address and get your launch roadmap.",
 };
 
+const LANG_BOOT = `try{var l=localStorage.getItem("g2b.locale");if(l==="es"||l==="hy")document.documentElement.lang=l}catch(e){}`;
+
 export const viewport: Viewport = { themeColor: "#0d4f40" };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${display.variable} ${body.variable} ${armenian.variable}`}>
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`${display.variable} ${body.variable} ${armenian.variable}`}
+    >
+      <head>
+        {/* set <html lang> from the saved locale before paint */}
+        <script dangerouslySetInnerHTML={{ __html: LANG_BOOT }} />
+      </head>
       <body>
         <LocaleProvider>
           <SiteHeader />

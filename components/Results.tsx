@@ -4,6 +4,7 @@ import dynamic from "next/dynamic";
 import type { ApiErrorCode, HazardStatus, SiteCheckResponse, VerdictStatus } from "@/lib/contracts";
 import { useT } from "@/lib/i18n";
 import { DISCLAIMER } from "@/lib/rules";
+import { DEMO_ADDRESSES } from "./data";
 
 const SiteMap = dynamic(() => import("./SiteMap"), {
   ssr: false,
@@ -100,7 +101,10 @@ export function SiteResults({
   }
 
   if (state.status === "error") {
-    const msg = d.errors[state.code] ?? d.errors.NETWORK;
+    const norm = (a: string) => a.toLowerCase().split(",")[0].trim();
+    const demoSet = new Set(DEMO_ADDRESSES.map((a) => norm(a.address)));
+    const allDemo = !!state.candidates?.length && state.candidates.every((c) => demoSet.has(norm(c)));
+    const msg = allDemo ? d.demoCandidates : (d.errors[state.code] ?? d.errors.NETWORK);
     return (
       <div role="alert" className="rounded-2xl border-2 border-ruby bg-ruby-wash p-5 text-ruby-deep">
         <p className="font-semibold">{msg}</p>
@@ -140,6 +144,7 @@ export function SiteResults({
       <div className="flex flex-wrap items-center gap-2">
         <DataBadge source={r.meta.dataSource} />
       </div>
+
 
       {/* Verdict */}
       <section
@@ -232,6 +237,17 @@ export function SiteResults({
           </div>
         </section>
       </div>
+
+      {r.meta.warnings.length ? (
+        <details className="text-sm text-ink-soft">
+          <summary className="cursor-pointer font-semibold">{d.warningsTitle}</summary>
+          <ul lang="en" className="mt-2 list-disc space-y-1 pl-5">
+            {r.meta.warnings.map((w, i) => (
+              <li key={i}>{w}</li>
+            ))}
+          </ul>
+        </details>
+      ) : null}
     </div>
   );
 }
