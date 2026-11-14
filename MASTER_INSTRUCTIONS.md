@@ -39,7 +39,7 @@
 ### Stretch, in priority order
 1. **Phase 3 — Document prep (LegalTech prize):** pre-filled drafts (e.g., LA County Fictitious Business Name statement worksheet, a one-page business summary, a checklist PDF) from the founder's answers. Clear "not legal advice" notice.
 2. **Tech-startup track polish** (entity choice CA vs. Delaware, 83(b) reminder, home-occupation rules, local startup resources).
-3. **Voice guide (ElevenLabs prize)** — reads the verdict + roadmap aloud in EN/ES/HY. Needs `ELEVENLABS_API_KEY`.
+3. **Voice guide (ElevenLabs prize)** — reads the verdict + roadmap aloud in EN/ES/HY. Needs `ELEVENLABS_API_KEY`. **Owner may never get this key:** the product must be complete without it. Build voice only if the key arrives, and then only as an add-on that hides itself entirely when the key is missing (no broken buttons, no errors).
 4. Address autocomplete, shareable result link, more business types.
 
 ### Explicit non-goals (today)
