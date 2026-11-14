@@ -30,9 +30,11 @@ function expectLocalized(text: LocalizedText | null | undefined, where: string) 
 }
 
 function stepText(s: RoadmapStep): string {
-  return `${s.id} ${s.title.en} ${s.description.en}`.toLowerCase();
+  // agency included so e.g. a Cottage Food registration with "LA County Public Health" counts as a health step
+  return `${s.id} ${s.title.en} ${s.description.en} ${s.agency}`.toLowerCase();
 }
 
+const OFFICIAL_HOST = /(^|\.)[a-z0-9-]+\.gov$/;
 const HEALTH_RE = /health/;
 const HOME_OCC_RE = /home[\s_-]?occupation/;
 const CUP_RE = /conditional[\s_-]?use|\bcup\b/;
@@ -188,6 +190,9 @@ describe("buildRoadmap invariants (every business type × location mode)", () =>
         for (const s of rm.steps) {
           expect(phases.has(s.phase), `${s.id}.phase "${s.phase}"`).toBe(true);
           expect(s.url, `${s.id}.url`).toMatch(/^https:\/\/[^\s/]+\.[^\s]+/);
+          // §7: official sources only (city / county / state / federal). Non-.gov needs an explicit allowlist entry.
+          const host = new URL(s.url).hostname;
+          expect(OFFICIAL_HOST.test(host), `${s.id}.url host "${host}" is not an official .gov domain`).toBe(true);
           expect(s.agency?.trim().length, `${s.id}.agency`).toBeGreaterThan(0);
           expect(typeof s.required).toBe("boolean");
           expect(typeof s.verified).toBe("boolean");
