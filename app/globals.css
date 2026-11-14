@@ -1,0 +1,7 @@
+@import "tailwindcss";
+
+/* frontend-dev owns this file: replace with the Jewel City theme. */
+body {
+  background: #faf7f2;
+  color: #1c1917;
+}
