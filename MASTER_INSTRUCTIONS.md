@@ -83,6 +83,7 @@ Ownership is **exclusive**: only the owner edits those paths. Need a change else
 | `package.json`, `package-lock.json`, configs (`next.config.*`, `tsconfig.json`, `tailwind`/`postcss`, `.gitignore`, `.env.example`) | **architect** | Agents request dependencies; architect installs, to avoid lockfile conflicts. |
 | `app/api/**`, `lib/gis/**`, `lib/rules/**` | **backend-dev** | Includes all roadmap/zoning *content* data (with `{en,es,hy}` text). |
 | `app/**` (except `app/api`), `components/**`, `lib/i18n/**`, `public/**`, `app/globals.css` | **frontend-dev** | UI strings live in `lib/i18n/{en,es,hy}.ts`. |
+| `lib/docs/**`, `components/docs/**` | **frontend-dev** | Phase 3 document prep (templates + UI). |
 | `tests/**`, `vitest.config.ts`, `docs/qa/**` | **qa-reviewer** | Reviews everyone's diffs; files bug reports to the architect. |
 
 ## 6. Shared contracts (`lib/contracts.ts`)
@@ -154,6 +155,8 @@ The owner **explicitly authorized direct-to-`main`** for this sprint. Everything
   - **Never** `git add .` / `git add -A` / `git commit -a`. Commit only your own paths: `git add <paths> && git commit -m "…" -- <paths>`.
   - Before pushing: `git pull --rebase origin main` then `git push origin main`. If you hit `index.lock`, wait a few seconds and retry — another agent is committing.
   - Never force-push, never rewrite history, never `git reset --hard`, never `git stash` (it would grab other agents' work), never `git checkout -- <file>` on files you don't own.
+- **Shared `.next` folder:** agents check with `npm run typecheck` and `npm test`. Only the architect (or QA when asked) runs `npm run build`, because builds and `next dev` overwrite each other's `.next`.
+- `git pull --rebase` fails while others have unstaged edits. Since everyone commits into the same local repo, just commit your paths and `git push origin main`; if the push is rejected, retry after a few seconds.
 - Never commit secrets. `.env.local` is gitignored; `.env.example` lists variable names only.
 - Report truthfully: say "not tested" when it wasn't. Build passing ≠ feature working.
 
