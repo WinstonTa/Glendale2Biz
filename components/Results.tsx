@@ -106,13 +106,16 @@ export function SiteResults({
     const allDemo = !!state.candidates?.length && state.candidates.every((c) => demoSet.has(norm(c)));
     const msg = allDemo ? d.demoCandidates : (d.errors[state.code] ?? d.errors.NETWORK);
     return (
-      <div role="alert" className="rounded-2xl border-2 border-ruby bg-ruby-wash p-5 text-ruby-deep">
+      <div
+        role="alert"
+        className={`rounded-2xl border-2 p-5 ${allDemo ? "border-sapphire bg-sapphire-wash text-sapphire-deep" : "border-ruby bg-ruby-wash text-ruby-deep"}`}
+      >
         <p className="font-semibold">{msg}</p>
         {state.candidates?.length ? (
           <ul className="mt-3 flex flex-wrap gap-2">
             {state.candidates.map((c) => (
               <li key={c}>
-                <button type="button" className="chip text-ink" onClick={() => onPickCandidate(c)}>
+                <button type="button" className="chip text-left text-ink" onClick={() => onPickCandidate(c)}>
                   <span aria-hidden="true">📍</span>
                   {c}
                 </button>
