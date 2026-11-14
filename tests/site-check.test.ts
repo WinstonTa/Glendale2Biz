@@ -34,7 +34,9 @@ beforeAll(async () => {
   const route = await import("@/app/api/site-check/route");
   POST = route.POST as PostFn;
   try {
-    const demo = (await import("@/lib/gis/demo")) as { DEMO_ADDRESSES?: unknown };
+    // Optional module (PHASE_1_MVP.md seam): variable specifier keeps `tsc` green if it never lands.
+    const demoSpec = "@/lib/gis/demo";
+    const demo = (await import(/* @vite-ignore */ demoSpec)) as { DEMO_ADDRESSES?: unknown };
     const list = demo.DEMO_ADDRESSES;
     if (Array.isArray(list) && list.length) {
       demoAddresses = list.map((a) => (typeof a === "string" ? a : (a as { address: string }).address));
