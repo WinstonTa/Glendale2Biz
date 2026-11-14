@@ -52,10 +52,16 @@ export function RoadmapView({ roadmap, storageKey }: { roadmap: Roadmap; storage
           </h2>
           <p className="text-ink-soft no-print">{d.roadmapHelp}</p>
         </div>
-        <button type="button" className="btn btn-ghost no-print" onClick={() => window.print()}>
-          <span aria-hidden="true">🖨️</span>
-          {d.print}
-        </button>
+        <div className="no-print flex flex-wrap gap-2">
+          <button type="button" className="btn btn-ghost" onClick={() => window.print()}>
+            <span aria-hidden="true">🖨️</span>
+            {d.print}
+          </button>
+          <a href="#documents" className="btn btn-primary">
+            <span aria-hidden="true">📄</span>
+            {d.docs.cta}
+          </a>
+        </div>
       </div>
 
       <div>

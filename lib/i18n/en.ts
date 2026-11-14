@@ -105,6 +105,37 @@ export const en = {
   print: "Print roadmap",
   roadmapEmpty: "No steps yet.",
 
+  docs: {
+    title: "Prepare my documents",
+    help: "Add a few details and we'll draft three documents for you. Everything stays on this device. Nothing is sent anywhere.",
+    cta: "Prepare my documents",
+    prefilled: "Filled in from your answers",
+    businessName: "Business name (DBA)",
+    businessNameHint: "The name customers will see.",
+    owners: "Owner name(s)",
+    ownersHint: "Full legal names, separated by commas.",
+    structure: "Business structure",
+    structures: {
+      sole_proprietor: "Sole proprietor",
+      partnership: "Partnership",
+      llc: "LLC",
+      corporation: "Corporation",
+    },
+    startDate: "Planned start date",
+    email: "Email (optional)",
+    phone: "Phone (optional)",
+    address: "Business address",
+    addressHint: "Your home address, or the property you're considering.",
+    savedLocally: "Saved on this device only.",
+    clear: "Clear form",
+    chooseDoc: "Documents",
+    print: "Print this document",
+    copy: "Copy text",
+    copied: "Copied",
+    copyFailed: "Couldn't copy. Select the text and copy it by hand.",
+    toFillNote: "Highlighted fields still need your input.",
+  },
+
   // Footer
   footerLegal:
     "Glendale2Biz offers general guidance, not legal advice. Always confirm requirements with the agency named in each step.",

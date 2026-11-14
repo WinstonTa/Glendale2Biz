@@ -205,6 +205,11 @@ h3,
 .chip:hover {
   border-color: var(--color-sapphire);
 }
+.chip[aria-pressed="true"] {
+  background: var(--color-jade-deep);
+  border-color: var(--color-jade-deep);
+  color: #fff;
+}
 .field {
   width: 100%;
   min-height: 3rem;
@@ -327,6 +332,17 @@ h3,
   }
   .roadmap-step {
     break-inside: avoid;
+  }
+  /* roadmap print hides the documents; document print hides everything else */
+  html:not([data-print="doc"]) .docs-section {
+    display: none !important;
+  }
+  html[data-print="doc"] .no-print-doc {
+    display: none !important;
+  }
+  html[data-print="doc"] .doc-page {
+    border: none !important;
+    padding: 0 !important;
   }
   a[data-print-url]::after {
     content: " (" attr(href) ")";

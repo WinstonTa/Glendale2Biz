@@ -2,6 +2,8 @@ import type { LocalizedText } from "@/lib/contracts";
 import type { GeneratedDoc, DocInput } from "./types";
 import { L, same, businessName, businessAddress, VERDICT_LABEL, STRUCTURE_LABEL, localizedDate } from "./common";
 
+const withArticle = (name: string) => `${/^[aeiou]/i.test(name) ? "an" : "a"} ${name.toLowerCase()}`;
+
 export const GLENDALE_PLANNING_URL = "https://www.glendaleca.gov/government/departments/community-development/planning";
 
 const join = (parts: LocalizedText[], sep = " "): LocalizedText => ({
@@ -36,8 +38,8 @@ export function buildZoningInquiry(input: DocInput): GeneratedDoc {
   ]);
 
   const intro = join([
-    L("I am planning to open a", "Planeo abrir un negocio de tipo", "Պլանավորում եմ բացել"),
-    { en: biz.en.toLowerCase(), es: `«${biz.es}»`, hy: `«${biz.hy}»` },
+    L("I am planning to open", "Planeo abrir un negocio de tipo", "Պլանավորում եմ բացել"),
+    { en: withArticle(biz.en), es: `«${biz.es}»`, hy: `«${biz.hy}»` },
     dba ? { en: `called "${dba}"`, es: `llamado "${dba}"`, hy: `«${dba}» անվամբ` } : same(""),
     L("at", "en", "հետևյալ հասցեում՝"),
     addr,
@@ -68,8 +70,8 @@ export function buildZoningInquiry(input: DocInput): GeneratedDoc {
 
   const questions: LocalizedText[] = [
     join([
-      L("Is a", "¿Es un negocio de tipo", "Արդյո՞ք"),
-      { en: biz.en.toLowerCase(), es: `«${biz.es}»`, hy: `«${biz.hy}»-ը` },
+      L("Is", "¿Es un negocio de tipo", "Արդյո՞ք"),
+      { en: withArticle(biz.en), es: `«${biz.es}»`, hy: `«${biz.hy}»-ը` },
       L("a permitted use in zone", "un uso permitido en la zona", "թույլատրված օգտագործում է"),
       code ? same(code) : zoneText,
       L("at this address?", "en esta dirección?", "գոտում այս հասցեում։"),

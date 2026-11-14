@@ -7,6 +7,7 @@ import { BusinessPicker } from "./BusinessPicker";
 import { LocationStep } from "./LocationStep";
 import { SiteResults, type SiteState } from "./Results";
 import { RoadmapView } from "./RoadmapView";
+import { DocsSection } from "./docs/DocsSection";
 import { buildRoadmap, getBusinessType } from "./data";
 
 type Step = 1 | 2 | 3;
@@ -193,7 +194,7 @@ export function Wizard() {
 
           {step === 3 ? (
             <div className="space-y-10">
-              <div className="flex flex-wrap items-center justify-between gap-3 border-b border-line pb-4">
+              <div className="no-print-doc flex flex-wrap items-center justify-between gap-3 border-b border-line pb-4">
                 <div>
                   <p className="text-sm font-semibold text-ink-soft">{d.resultsFor}</p>
                   <p className="font-display text-xl font-extrabold [overflow-wrap:anywhere] sm:text-2xl">
@@ -226,6 +227,7 @@ export function Wizard() {
                 </div>
               </div>
 
+              <div className="no-print-doc">
               {mode === "address" ? (
                 <SiteResults
                   state={site}
@@ -241,9 +243,16 @@ export function Wizard() {
                   {mode === "home" ? d.homeModeNote : d.undecidedNote}
                 </p>
               )}
+              </div>
 
               {roadmap ? (
-                <RoadmapView roadmap={roadmap} storageKey={`g2b.roadmap.${businessId}.${mode}`} />
+                <div className="no-print-doc">
+                  <RoadmapView roadmap={roadmap} storageKey={`g2b.roadmap.${businessId}.${mode}`} />
+                </div>
+              ) : null}
+
+              {roadmap && businessId ? (
+                <DocsSection businessTypeId={businessId} locationMode={mode} site={siteData} roadmap={roadmap} />
               ) : null}
             </div>
           ) : null}
