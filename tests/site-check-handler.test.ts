@@ -52,14 +52,28 @@ describe("handleSiteCheck + mockProvider", () => {
     }
   });
 
-  it("non-demo Glendale-looking address in mock mode is flagged with a warning (never silently presented)", async () => {
+  it("non-demo Glendale address in mock mode → 409 AMBIGUOUS_ADDRESS with the demo addresses as candidates (06c7cc9)", async () => {
+    for (const a of ["500 N Brand Blvd", "100 N Central Ave, Glendale, CA 91203", "614 E Broadway"]) {
+      const r = await handleSiteCheck(ok(a), { provider: mockProvider });
+      expect(r.status, a).toBe(409);
+      const e = (r.body as ApiError).error;
+      expect(e.code, a).toBe("AMBIGUOUS_ADDRESS");
+      expect(e.candidates?.length, a).toBe(DEMO_ADDRESSES.length);
+      for (const d of DEMO_ADDRESSES) {
+        expect(
+          e.candidates!.some((c) => c.toLowerCase().startsWith(d.address.split(",")[0].toLowerCase())),
+          `${a}: candidates missing ${d.address}`,
+        ).toBe(true);
+      }
+    }
+  });
+
+  it("every candidate returned for a non-demo address resolves to 200 when resubmitted", async () => {
     const r = await handleSiteCheck(ok("500 N Brand Blvd"), { provider: mockProvider });
-    if (r.status === 200) {
-      const b = r.body as SiteCheckResponse;
-      expect(b.meta.dataSource).toBe("mock");
-      expect(b.meta.warnings.length, "fallback demo data without a warning").toBeGreaterThan(0);
-    } else {
-      expect(r.status).toBeGreaterThanOrEqual(400);
+    for (const c of (r.body as ApiError).error.candidates ?? []) {
+      const r2 = await handleSiteCheck(ok(c), { provider: mockProvider });
+      expect(r2.status, c).toBe(200);
+      expect((r2.body as SiteCheckResponse).meta.dataSource).toBe("mock");
     }
   });
 

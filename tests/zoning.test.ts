@@ -42,19 +42,20 @@ describe("evaluateZoning", () => {
     }
   });
 
-  it("every type × known code returns a valid verdict with localized summary + notes, including the disclaimer", () => {
+  it("every type × known code returns a valid verdict with localized summary + notes; disclaimer is NOT in notes (UI owns it, fd57817)", () => {
     for (const code of [...KNOWN_CODES, "XYZ", null]) {
       for (const b of BUSINESS_TYPES) {
         const v = evaluateZoning(code, b);
         expect(VERDICTS).toContain(v.status);
         expectLocalized(v.summary, `${b.id}@${code}.summary`);
         v.notes.forEach((n, i) => expectLocalized(n, `${b.id}@${code}.notes[${i}]`));
-        expect(v.notes, `${b.id}@${code} lacks disclaimer`).toContainEqual(DISCLAIMER);
+        expect(v.notes, `${b.id}@${code} still carries the disclaimer (UI renders it; would show twice)`).not.toContainEqual(DISCLAIMER);
+        expect(v.notes.some((n) => n.en.trim() === DISCLAIMER.en.trim()), `${b.id}@${code} disclaimer text in notes`).toBe(false);
       }
     }
   });
 
-  it("disclaimer text matches MASTER_INSTRUCTIONS §7", () => {
+  it("exported DISCLAIMER text matches MASTER_INSTRUCTIONS §7", () => {
     expect(DISCLAIMER.en).toBe(
       "This is general guidance, not legal advice. Confirm with the City of Glendale Planning Division before signing a lease.",
     );
