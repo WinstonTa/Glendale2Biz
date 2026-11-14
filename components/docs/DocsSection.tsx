@@ -91,9 +91,25 @@ function DocPage({ doc }: { doc: GeneratedDoc }) {
   useEffect(() => setCopyState("idle"), [doc.id, locale]);
 
   async function copy() {
+    const text = docToText(doc, locale);
     try {
-      await navigator.clipboard.writeText(docToText(doc, locale));
+      await navigator.clipboard.writeText(text);
       setCopyState("ok");
+      return;
+    } catch {
+      /* fall back below */
+    }
+    try {
+      const ta = document.createElement("textarea");
+      ta.value = text;
+      ta.setAttribute("readonly", "");
+      ta.style.position = "fixed";
+      ta.style.opacity = "0";
+      document.body.appendChild(ta);
+      ta.select();
+      const ok = document.execCommand("copy");
+      document.body.removeChild(ta);
+      setCopyState(ok ? "ok" : "fail");
     } catch {
       setCopyState("fail");
     }
@@ -123,7 +139,7 @@ function DocPage({ doc }: { doc: GeneratedDoc }) {
           {copyState === "ok" ? d.docs.copied : d.docs.copy}
         </button>
         <span className="sr-only" aria-live="polite">
-          {copyState === "ok" ? d.docs.copied : copyState === "fail" ? d.docs.copyFailed : ""}
+          {copyState === "ok" ? d.docs.copied : ""}
         </span>
         {copyState === "fail" ? <p className="w-full text-sm font-semibold text-ruby">{d.docs.copyFailed}</p> : null}
       </div>
