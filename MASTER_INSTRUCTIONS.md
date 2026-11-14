@@ -98,6 +98,7 @@ export interface BusinessType {
   id: string;                 // e.g. "cafe", "salon", "auto_repair", "software_startup"
   category: BusinessCategory;
   name: LocalizedText;
+  blurb: LocalizedText;       // one-line card description
   icon: string;               // emoji or icon key
   keywords: string[];         // for free-text matching, lowercase, include es/hy words where easy
   flags: { food: boolean; alcohol: boolean; healthPermit: boolean; homeBasedOk: boolean; sellsGoods: boolean; tech: boolean };
@@ -134,7 +135,7 @@ export interface Roadmap { steps: RoadmapStep[]; generatedAt: string }
 ```
 
 **Endpoint:** `POST /api/site-check` → `200 SiteCheckResponse` | `4xx/5xx ApiError`.
-**Rules API (backend exports, frontend imports):** `BUSINESS_TYPES: BusinessType[]`, `matchBusinessType(text: string): BusinessType[]`, `buildRoadmap(input: RoadmapInput): Roadmap`, `t(text: LocalizedText, locale: Locale): string`.
+**Rules API (backend exports from `@/lib/rules`, frontend imports):** `BUSINESS_TYPES: BusinessType[]`, `getBusinessType(id: string): BusinessType | undefined`, `matchBusinessType(text: string): BusinessType[]`, `buildRoadmap(input: RoadmapInput): Roadmap`, `t(text: LocalizedText, locale: Locale): string`.
 
 ## 7. Content & accuracy rules (legal-safety matters — this is a LegalTech-prize product)
 

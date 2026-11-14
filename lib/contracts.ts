@@ -4,7 +4,8 @@
  * announcing the change to every agent (see MASTER_INSTRUCTIONS.md §6).
  *
  * Module map (implementations owned by backend-dev):
- *   import { BUSINESS_TYPES, matchBusinessType, buildRoadmap, t } from "@/lib/rules";
+ *   import { BUSINESS_TYPES, getBusinessType, matchBusinessType, buildRoadmap, t } from "@/lib/rules";
+ *   import { DEMO_ADDRESSES } from "@/lib/gis/demo";   // client-safe
  *   POST /api/site-check   body: SiteCheckRequest  →  SiteCheckResponse | ApiError
  */
 
