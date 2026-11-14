@@ -3,6 +3,7 @@
 import dynamic from "next/dynamic";
 import type { ApiErrorCode, HazardStatus, SiteCheckResponse, VerdictStatus } from "@/lib/contracts";
 import { useT } from "@/lib/i18n";
+import { DISCLAIMER } from "@/lib/rules";
 
 const SiteMap = dynamic(() => import("./SiteMap"), {
   ssr: false,
@@ -74,10 +75,12 @@ export function SiteResults({
   state,
   onRetry,
   onPickCandidate,
+  onEditLocation,
 }: {
   state: SiteState;
   onRetry: () => void;
   onPickCandidate: (address: string) => void;
+  onEditLocation: () => void;
 }) {
   const { d, lt } = useT();
 
@@ -101,7 +104,7 @@ export function SiteResults({
     return (
       <div role="alert" className="rounded-2xl border-2 border-ruby bg-ruby-wash p-5 text-ruby-deep">
         <p className="font-semibold">{msg}</p>
-        {state.code === "AMBIGUOUS_ADDRESS" && state.candidates?.length ? (
+        {state.candidates?.length ? (
           <ul className="mt-3 flex flex-wrap gap-2">
             {state.candidates.map((c) => (
               <li key={c}>
@@ -112,17 +115,25 @@ export function SiteResults({
               </li>
             ))}
           </ul>
-        ) : (
-          <button type="button" className="btn btn-ghost mt-3 bg-card" onClick={onRetry}>
-            {d.retry}
+        ) : null}
+        <div className="mt-3 flex flex-wrap gap-2">
+          {state.code === "GIS_UNAVAILABLE" || state.code === "NETWORK" ? (
+            <button type="button" className="btn btn-ghost bg-card" onClick={onRetry}>
+              {d.retry}
+            </button>
+          ) : null}
+          <button type="button" className="btn btn-ghost bg-card" onClick={onEditLocation}>
+            {d.editLocation}
           </button>
-        )}
+        </div>
       </div>
     );
   }
 
   const r = state.data;
   const v = VERDICT_STYLE[r.verdict.status];
+  // the disclaimer is always shown below; drop it if the API also sent it as a note
+  const notes = r.verdict.notes.filter((n) => n.en.trim() !== DISCLAIMER.en.trim());
 
   return (
     <div className="space-y-5">
@@ -145,15 +156,14 @@ export function SiteResults({
             <p className="mt-2 text-lg">{lt(r.verdict.summary)}</p>
           </div>
         </div>
-        {r.verdict.notes.length ? (
+        {notes.length ? (
           <ul className="mt-4 list-disc space-y-1 pl-5">
-            {r.verdict.notes.map((n, i) => (
+            {notes.map((n, i) => (
               <li key={i}>{lt(n)}</li>
             ))}
           </ul>
         ) : null}
         <p className="mt-4 border-t border-black/10 pt-3 text-sm font-medium">
-          <span aria-hidden="true">⚖️ </span>
           {d.disclaimer}
         </p>
       </section>

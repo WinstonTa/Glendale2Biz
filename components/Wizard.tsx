@@ -230,6 +230,7 @@ export function Wizard() {
                 <SiteResults
                   state={site}
                   onRetry={() => void runCheck(address.trim())}
+                  onEditLocation={() => setStep(2)}
                   onPickCandidate={(c) => {
                     setAddress(c);
                     void runCheck(c);
