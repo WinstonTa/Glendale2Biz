@@ -79,7 +79,7 @@ export const BUSINESS_TYPES: BusinessType[] = [
       "Servicios de cabello, uñas, pestañas, cuidado de la piel o maquillaje.",
       "Մազերի, եղունգների, թարթիչների, մաշկի խնամքի կամ դիմահարդարման ծառայություններ։",
     ),
-    keywords: ["salon", "hair", "nail", "nails", "beauty", "lashes", "spa", "esthetician", "makeup", "salón", "belleza", "uñas", "cabello", "սրահ", "գեղեցկություն", "եղունգ", "մազ"],
+    keywords: ["salon", "hair", "nail", "nails", "beauty", "lashes", "spa", "esthetician", "makeup", "salón", "peluquería", "estética", "manicura", "belleza", "uñas", "cabello", "սրահ", "գեղեցկություն", "եղունգ", "մազ"],
     flags: F({}),
   },
   {
@@ -92,7 +92,7 @@ export const BUSINESS_TYPES: BusinessType[] = [
       "Cortes de cabello, afeitado y arreglo personal.",
       "Սանրվածքներ, սափրում և խնամք։",
     ),
-    keywords: ["barber", "barbershop", "haircut", "shave", "fade", "barbería", "barbero", "վարսավիր", "վարսավիրանոց", "սափրիչ"],
+    keywords: ["barber", "barbershop", "haircut", "shave", "fade", "barbería", "barbero", "peluquero", "վարսավիր", "վարսավիրանոց", "սափրիչ"],
     flags: F({}),
   },
   {
