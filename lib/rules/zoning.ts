@@ -114,7 +114,17 @@ export const DISCLAIMER: LocalizedText = L(
   "Սա ընդհանուր ուղղորդում է, ոչ թե իրավաբանական խորհրդատվություն։ Նախքան վարձակալության պայմանագիր ստորագրելը՝ հաստատեք Գլենդեյլ քաղաքի Պլանավորման բաժնում։",
 );
 
-/** Pure verdict for a business type at a zone code. */
+/** "an auto repair shop", "an e-commerce shop", "a cafe" (lowercased name with the right article). */
+export function aOrAn(name: string): string {
+  const n = name.toLowerCase();
+  return `${/^[aeiou]/.test(n) ? "an" : "a"} ${n}`;
+}
+const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
+
+/**
+ * Pure verdict for a business type at a zone code.
+ * The UI renders DISCLAIMER itself, so it is NOT included in `notes`.
+ */
 export function evaluateZoning(rawCode: string | null | undefined, b: BusinessType): Verdict {
   const fam = zoneFamily(rawCode);
   const code = normalizeZoneCode(rawCode) ?? "?";
@@ -124,11 +134,11 @@ export function evaluateZoning(rawCode: string | null | undefined, b: BusinessTy
     return {
       status: "unknown",
       summary: L(
-        `We don't have a rule for zone “${code}” yet — ask Glendale Planning whether a ${b.name.en.toLowerCase()} is allowed here.`,
+        `We don't have a rule for zone “${code}” yet — ask Glendale Planning whether ${aOrAn(b.name.en)} is allowed here.`,
         `Aún no tenemos una regla para la zona “${code}”. Pregunte a Planificación de Glendale si se permite un negocio “${b.name.es}” aquí.`,
         `«${code}» գոտու համար դեռ կանոն չունենք․ հարցրեք Գլենդեյլի Պլանավորման բաժնին՝ արդյոք այստեղ թույլատրվում է «${b.name.hy}»։`,
       ),
-      notes: [DISCLAIMER],
+      notes: [],
     };
   }
 
@@ -181,27 +191,26 @@ export function evaluateZoning(rawCode: string | null | undefined, b: BusinessTy
       ),
     );
   }
-  notes.push(DISCLAIMER);
 
   const zn = zoneName(rawCode)!;
   const summary: Record<VerdictStatus, LocalizedText> = {
     allowed: L(
-      `A ${b.name.en.toLowerCase()} is likely allowed in ${zn.en} (${code}).`,
+      `${cap(aOrAn(b.name.en))} is likely allowed in ${zn.en} (${code}).`,
       `Un negocio “${b.name.es}” probablemente está permitido en ${zn.es} (${code}).`,
       `«${b.name.hy}», հավանաբար, թույլատրված է «${zn.hy}» գոտում (${code})։`,
     ),
     conditional: L(
-      `A ${b.name.en.toLowerCase()} may be allowed in ${zn.en} (${code}), but likely only with a special permit.`,
+      `${cap(aOrAn(b.name.en))} may be allowed in ${zn.en} (${code}), but likely only with a special permit.`,
       `Un negocio “${b.name.es}” podría permitirse en ${zn.es} (${code}), pero probablemente solo con un permiso especial.`,
       `«${b.name.hy}» կարող է թույլատրվել «${zn.hy}» գոտում (${code}), բայց հավանաբար միայն հատուկ թույլտվությամբ։`,
     ),
     not_allowed: L(
-      `A ${b.name.en.toLowerCase()} is likely not allowed in ${zn.en} (${code}).`,
+      `${cap(aOrAn(b.name.en))} is likely not allowed in ${zn.en} (${code}).`,
       `Un negocio “${b.name.es}” probablemente no está permitido en ${zn.es} (${code}).`,
       `«${b.name.hy}», հավանաբար, թույլատրված չէ «${zn.hy}» գոտում (${code})։`,
     ),
     unknown: L(
-      `We couldn't determine whether a ${b.name.en.toLowerCase()} is allowed in zone ${code}.`,
+      `We couldn't determine whether ${aOrAn(b.name.en)} is allowed in zone ${code}.`,
       `No pudimos determinar si un negocio “${b.name.es}” está permitido en la zona ${code}.`,
       `Չկարողացանք որոշել՝ արդյոք «${b.name.hy}» թույլատրված է ${code} գոտում։`,
     ),
