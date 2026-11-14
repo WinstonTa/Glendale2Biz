@@ -38,7 +38,16 @@ export function buildFbnWorksheet(input: DocInput): GeneratedDoc {
             "4. Registrante(s): nombre legal completo y domicilio de cada propietario",
             "4. Գրանցող(ներ)՝ յուրաքանչյուր սեփականատիրոջ լրիվ իրավական անունը և բնակության հասցեն",
           ),
-      ...valueOr(f.ownerNames),
+      ...(isEntity || !f.ownerNames.trim()
+        ? valueOr(f.ownerNames)
+        : {
+            value: L(
+              `${f.ownerNames.trim()} — [residence address of each owner]`,
+              `${f.ownerNames.trim()} — [domicilio de cada propietario]`,
+              `${f.ownerNames.trim()} — [յուրաքանչյուր սեփականատիրոջ բնակության հասցեն]`,
+            ),
+            missing: true,
+          }),
     },
     {
       label: L("5. Business is conducted by", "5. El negocio es dirigido por", "5. Բիզնեսը վարում է"),

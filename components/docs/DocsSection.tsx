@@ -283,7 +283,7 @@ export function DocsSection({
               {STRUCTURES.map((s) => (
                 <label
                   key={s}
-                  className={`flex min-h-11 cursor-pointer items-center gap-2 rounded-xl border-[1.5px] px-3 py-2 text-sm font-semibold ${form.structure === s ? "border-jade bg-jade-wash" : "border-line bg-card"}`}
+                  className={`flex min-h-11 min-w-0 cursor-pointer items-center gap-2 rounded-xl [overflow-wrap:anywhere] border-[1.5px] px-3 py-2 text-sm font-semibold ${form.structure === s ? "border-jade bg-jade-wash" : "border-line bg-card"}`}
                 >
                   <input
                     type="radio"
