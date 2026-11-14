@@ -4,6 +4,37 @@ Rounds are appended newest first. Severity: **P0** breaks the demo · **P1** vis
 
 ---
 
+## Round 1b — 2026-11-14 ~16:00 PT (reviewed through `c494457`)
+
+Commands were run on a clean `git archive` snapshot of `c494457`. Per the architect, `npm run build` was **not run**, because the shared `.next` folder would collide with the dev server.
+
+| Command | Result |
+| --- | --- |
+| `npm test` | **PASS**: 7 files, **213 / 213** |
+| `npm run typecheck` | **PASS** |
+
+**Test changes**
+- `tests/zoning.test.ts`: now asserts the disclaimer is **not** in `verdict.notes`, because the UI owns it after `fd57817`.
+- `tests/site-check-handler.test.ts`: a non-demo address in mock mode now gives **409 `AMBIGUOUS_ADDRESS`** with every demo address as a candidate (`06c7cc9`), and each candidate resolves to 200 when resubmitted.
+- New `tests/docs.test.ts` for `lib/docs`, covering every business type × home/undecided/3 demo sites × full/empty form:
+  - `generateDocuments` returns zoning_inquiry, fbn and launch_summary;
+  - every title, subtitle, heading, field, paragraph, bullet, checklist item and link label is non-empty in en/es/hy;
+  - every link is `https` on a `.gov` host;
+  - FBN links `FBN_URL` and the zoning inquiry links `GLENDALE_PLANNING_URL`;
+  - `DOC_BANNER` says not legal advice / not an official form in all locales, and `docToText` includes it;
+  - output is deterministic;
+  - empty fields are flagged `missing` with localized placeholders.
+
+**Round-1 bug status.** Fixes are pushed for all of these, but none is browser-verified yet. That comes in round 2.
+- **P1-1:** `06c7cc9` (mock returns candidates) and `ebcfbfd` (warnings disclosure in the UI). Backend behavior is covered by tests.
+- **P2-1:** `fd57817` and `3d76b9d`. The backend half is covered by tests.
+- **P2-2:** `fd57817` (a/an).
+- **P2-4:** `4aadf28` (docs sync).
+- **P2-5:** `ebcfbfd` (early `html lang`).
+- **Still open:** P2-3 (historical commit subjects, won't fix) and P2-6 (qa-owned config warning, cosmetic).
+
+---
+
 ## Round 1 — 2026-11-14 ~15:50 PT (Phase 1, reviewed through `621d914`)
 
 ### Gate results (clean `git archive HEAD` snapshot at `621d914`, sharing the repo's `node_modules`, so other agents' uncommitted work is left out)
