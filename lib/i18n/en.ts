@@ -1,0 +1,113 @@
+// UI strings — English (source of truth for keys).
+export const en = {
+  langName: "English",
+  skipToContent: "Skip to main content",
+  switcherLabel: "Language",
+  tagline: "From idea to open doors in Glendale.",
+  heroTitle: "Can I open my business at this address?",
+  heroBody:
+    "Pick your business, enter a Glendale address, and get the zoning answer plus a step-by-step launch plan — in English, Spanish or Armenian.",
+  steps: { business: "Business", location: "Location", results: "Plan" },
+  stepOf: "Step {n} of 3",
+
+  // Step 1
+  pickTitle: "What do you want to open?",
+  pickHelp: "Choose the closest match. You can change it later.",
+  groupStorefront: "Storefront & services",
+  groupTech: "Tech & online",
+  describeLabel: "Or describe your idea",
+  describePlaceholder: "e.g. a small bakery that sells cakes online",
+  describeMatches: "Best matches for your idea are highlighted.",
+  describeNoMatch: "No close match yet — pick the nearest card above.",
+  match: "Match",
+  selected: "Selected",
+  continue: "Continue",
+  back: "Back",
+
+  // Step 2
+  whereTitle: "Where will it be?",
+  whereHelp: "Enter a street address in Glendale, CA.",
+  addressLabel: "Street address",
+  addressPlaceholder: "e.g. 613 E Broadway",
+  tryDemo: "Try a demo address",
+  orLabel: "No storefront address?",
+  modeHome: "I'll run it from home",
+  modeHomeHelp: "Skip the zoning lookup and get a home-business roadmap.",
+  modeUndecided: "I haven't picked a location",
+  modeUndecidedHelp: "Get your roadmap now and check a site later.",
+  checkSite: "Check this address",
+  buildPlan: "Build my roadmap",
+  addressRequired: "Enter an address or choose one of the options below.",
+
+  // Step 3 — results
+  checking: "Checking city records…",
+  resultsFor: "Results for",
+  changeAnswers: "Start over",
+  editLocation: "Change location",
+  demoData: "Demo data",
+  demoDataHelp: "Sample records, not a live city lookup.",
+  liveData: "Live City of Glendale GIS",
+  verdict: {
+    allowed: "Likely allowed",
+    conditional: "Allowed with a permit",
+    not_allowed: "Likely not allowed",
+    unknown: "We couldn't tell",
+  },
+  disclaimer:
+    "This is general guidance, not legal advice. Confirm with the City of Glendale Planning Division before signing a lease.",
+  matchedAddress: "Matched address",
+  zoning: "Zoning",
+  zoneUnknown: "Zone not found",
+  mapLabel: "Map of the matched address",
+  hazardsTitle: "Hazard zones",
+  hazard: { in_zone: "In zone", not_in_zone: "Not in zone", unavailable: "Unavailable" },
+  nearbyTitle: "Nearby",
+  nearbyEmpty: "No nearby resources returned.",
+  resource: {
+    schools: "School",
+    parks: "Park",
+    bus_stops: "Bus stop",
+    police_stations: "Police",
+    fire_stations: "Fire station",
+    libraries: "Library",
+    hospitals: "Hospital",
+  },
+  homeModeNote: "Home-based: no storefront zoning lookup. Glendale home occupations usually need a Home Occupation Permit.",
+  undecidedNote: "No location yet. Your roadmap covers everything you can do before picking a site.",
+
+  // Errors
+  errors: {
+    ADDRESS_NOT_FOUND: "We couldn't find that address. Check the street number and name, or try a demo address.",
+    OUTSIDE_GLENDALE: "That address looks like it's outside Glendale. This tool covers City of Glendale addresses only.",
+    AMBIGUOUS_ADDRESS: "That address matches more than one place. Pick the right one:",
+    GIS_UNAVAILABLE: "City map data isn't responding right now. Try again in a minute, or use a demo address.",
+    BAD_REQUEST: "Something in the request was missing. Check the address and try again.",
+    NETWORK: "Couldn't reach the server. Check your connection and try again.",
+  },
+  retry: "Try again",
+
+  // Roadmap
+  roadmapTitle: "Your launch roadmap",
+  roadmapHelp: "Check off steps as you go. Progress is saved on this device.",
+  progress: "{done} of {total} steps done",
+  phase: { plan: "Plan", register: "Register", permit: "Permit", open: "Open" },
+  agency: "Agency",
+  cost: "Cost",
+  time: "Time",
+  whyApplies: "Why this applies to you",
+  confirmWithAgency: "Confirm with agency",
+  optional: "Optional",
+  officialLink: "Official page",
+  opensNewTab: "(opens in a new tab)",
+  markDone: "Mark done",
+  print: "Print roadmap",
+  roadmapEmpty: "No steps yet.",
+
+  // Footer
+  footerLegal:
+    "Glendale2Biz offers general guidance, not legal advice. Always confirm requirements with the agency named in each step.",
+  footerTranslation: "Spanish and Armenian translations are in review.",
+  footerData: "Data: City of Glendale GIS and official agency sites.",
+};
+
+export type Dict = typeof en;

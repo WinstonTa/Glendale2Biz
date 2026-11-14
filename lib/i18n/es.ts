@@ -1,0 +1,111 @@
+import type { Dict } from "./en";
+
+// UI strings — Español (machine-authored, in review).
+export const es: Dict = {
+  langName: "Español",
+  skipToContent: "Saltar al contenido principal",
+  switcherLabel: "Idioma",
+  tagline: "De la idea a abrir sus puertas en Glendale.",
+  heroTitle: "¿Puedo abrir mi negocio en esta dirección?",
+  heroBody:
+    "Elija su negocio, escriba una dirección de Glendale y reciba la respuesta de zonificación y un plan de apertura paso a paso, en inglés, español o armenio.",
+  steps: { business: "Negocio", location: "Ubicación", results: "Plan" },
+  stepOf: "Paso {n} de 3",
+
+  pickTitle: "¿Qué quiere abrir?",
+  pickHelp: "Elija la opción más parecida. Puede cambiarla después.",
+  groupStorefront: "Locales y servicios",
+  groupTech: "Tecnología y en línea",
+  describeLabel: "O describa su idea",
+  describePlaceholder: "p. ej. una panadería pequeña que vende pasteles en línea",
+  describeMatches: "Las opciones que mejor coinciden están resaltadas.",
+  describeNoMatch: "Aún no hay coincidencias — elija la tarjeta más cercana.",
+  match: "Coincide",
+  selected: "Elegido",
+  continue: "Continuar",
+  back: "Atrás",
+
+  whereTitle: "¿Dónde estará?",
+  whereHelp: "Escriba una dirección en Glendale, CA.",
+  addressLabel: "Dirección",
+  addressPlaceholder: "p. ej. 613 E Broadway",
+  tryDemo: "Pruebe una dirección de demostración",
+  orLabel: "¿No tiene local?",
+  modeHome: "Lo haré desde casa",
+  modeHomeHelp: "Omita la zonificación y reciba un plan para negocio en casa.",
+  modeUndecided: "Aún no tengo ubicación",
+  modeUndecidedHelp: "Reciba su plan ahora y revise un local después.",
+  checkSite: "Revisar esta dirección",
+  buildPlan: "Crear mi plan",
+  addressRequired: "Escriba una dirección o elija una de las opciones de abajo.",
+
+  checking: "Consultando los registros de la ciudad…",
+  resultsFor: "Resultados para",
+  changeAnswers: "Empezar de nuevo",
+  editLocation: "Cambiar ubicación",
+  demoData: "Datos de demostración",
+  demoDataHelp: "Registros de ejemplo, no una consulta en vivo a la ciudad.",
+  liveData: "SIG de la Ciudad de Glendale en vivo",
+  verdict: {
+    allowed: "Probablemente permitido",
+    conditional: "Permitido con un permiso",
+    not_allowed: "Probablemente no permitido",
+    unknown: "No pudimos determinarlo",
+  },
+  disclaimer:
+    "Esto es orientación general, no asesoría legal. Confirme con la División de Planificación de la Ciudad de Glendale antes de firmar un contrato de arrendamiento.",
+  matchedAddress: "Dirección encontrada",
+  zoning: "Zonificación",
+  zoneUnknown: "Zona no encontrada",
+  mapLabel: "Mapa de la dirección encontrada",
+  hazardsTitle: "Zonas de riesgo",
+  hazard: { in_zone: "Dentro de la zona", not_in_zone: "Fuera de la zona", unavailable: "No disponible" },
+  nearbyTitle: "Cerca",
+  nearbyEmpty: "No se encontraron recursos cercanos.",
+  resource: {
+    schools: "Escuela",
+    parks: "Parque",
+    bus_stops: "Parada de autobús",
+    police_stations: "Policía",
+    fire_stations: "Estación de bomberos",
+    libraries: "Biblioteca",
+    hospitals: "Hospital",
+  },
+  homeModeNote:
+    "Negocio en casa: no se revisa la zonificación comercial. En Glendale, los negocios en casa suelen necesitar un Permiso de Ocupación Doméstica.",
+  undecidedNote: "Aún sin ubicación. Su plan incluye todo lo que puede hacer antes de elegir un local.",
+
+  errors: {
+    ADDRESS_NOT_FOUND:
+      "No encontramos esa dirección. Revise el número y el nombre de la calle, o pruebe una dirección de demostración.",
+    OUTSIDE_GLENDALE:
+      "Esa dirección parece estar fuera de Glendale. Esta herramienta solo cubre direcciones de la Ciudad de Glendale.",
+    AMBIGUOUS_ADDRESS: "Esa dirección coincide con más de un lugar. Elija la correcta:",
+    GIS_UNAVAILABLE:
+      "Los datos del mapa de la ciudad no responden ahora. Intente de nuevo en un minuto o use una dirección de demostración.",
+    BAD_REQUEST: "Faltaba algo en la solicitud. Revise la dirección e intente de nuevo.",
+    NETWORK: "No pudimos conectar con el servidor. Revise su conexión e intente de nuevo.",
+  },
+  retry: "Intentar de nuevo",
+
+  roadmapTitle: "Su plan de apertura",
+  roadmapHelp: "Marque los pasos a medida que avanza. El progreso se guarda en este dispositivo.",
+  progress: "{done} de {total} pasos completados",
+  phase: { plan: "Planear", register: "Registrar", permit: "Permisos", open: "Abrir" },
+  agency: "Agencia",
+  cost: "Costo",
+  time: "Tiempo",
+  whyApplies: "Por qué le aplica",
+  confirmWithAgency: "Confirme con la agencia",
+  optional: "Opcional",
+  officialLink: "Página oficial",
+  opensNewTab: "(se abre en una pestaña nueva)",
+  markDone: "Marcar como hecho",
+  print: "Imprimir plan",
+  roadmapEmpty: "Aún no hay pasos.",
+
+  footerLegal:
+    "Glendale2Biz ofrece orientación general, no asesoría legal. Confirme siempre los requisitos con la agencia indicada en cada paso.",
+  footerTranslation: "Las traducciones al español y al armenio están en revisión.",
+  footerData: "Datos: SIG de la Ciudad de Glendale y sitios oficiales de las agencias.",
+};
