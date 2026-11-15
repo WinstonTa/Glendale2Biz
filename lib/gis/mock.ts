@@ -1,6 +1,7 @@
 import broadway from "./fixtures/613-e-broadway.json";
 import sanFernando from "./fixtures/4500-san-fernando-rd.json";
 import cleveland from "./fixtures/1200-cleveland-rd.json";
+import honolulu from "./fixtures/2900-honolulu-ave.json";
 import type { HazardKind, HazardStatus, ResourceKind } from "../contracts";
 import { GisError, type GisLookup, type GisProvider } from "./types";
 
@@ -16,7 +17,7 @@ interface Fixture {
   nearby: { kind: string; name: string; address?: string; distanceM: number }[];
 }
 
-export const FIXTURES: readonly Fixture[] = [broadway, sanFernando, cleveland] as Fixture[];
+export const FIXTURES: readonly Fixture[] = [broadway, sanFernando, cleveland, honolulu] as Fixture[];
 
 const OTHER_CITIES = [
   "los angeles", "burbank", "pasadena", "la canada", "la cañada", "flintridge", "eagle rock",

@@ -2,18 +2,19 @@
 
 Demo data only. Every response built from these files has `meta.dataSource: "mock"`, and the UI must show the "Demo data" badge.
 
-The three fixtures **mirror real live GIS responses** recorded 2026-11-14 (see `live/`), so mock and live agree for the demo addresses.
+The four fixtures **mirror real live GIS responses** recorded 2026-11-14 (see `live/`), so mock and live agree for the demo addresses.
 
 | Address | Zone | Example (cafe) |
 | --- | --- | --- |
 | 613 E Broadway, Glendale, CA 91206 (City Hall) | DSP/CC | allowed |
 | 4500 San Fernando Rd, Glendale, CA 91204 | IMU R | conditional |
 | 1200 Cleveland Rd, Glendale, CA 91202 | R1 I | not_allowed |
+| 2900 Honolulu Ave, Glendale, CA 91214 (Montrose) | C1 | allowed; wildfire Very High + liquefaction |
 
 The same list is exported, client-safe, as `DEMO_ADDRESSES` from `@/lib/gis/demo`.
 
 Mock matching: a street-number + street-name match picks a fixture. A ZIP outside 912xx, or another city name, returns `OUTSIDE_GLENDALE`.
-Text with no street number returns `ADDRESS_NOT_FOUND`. Any other plausible address returns `AMBIGUOUS_ADDRESS` (HTTP 409) with `candidates` = the three demo addresses. Mock mode never answers a non-demo address with another address's data.
+Text with no street number returns `ADDRESS_NOT_FOUND`. Any other plausible address returns `AMBIGUOUS_ADDRESS` (HTTP 409) with `candidates` = the demo addresses. Mock mode never answers a non-demo address with another address's data.
 
 ## `live/` — recorded live MCP sessions (offline parser tests)
 

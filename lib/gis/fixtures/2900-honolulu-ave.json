@@ -1,0 +1,109 @@
+{
+  "_source": "Mirrors live Glendale GIS MCP response recorded 2026-11-14T23:54:42.602Z (lib/gis/fixtures/live/2900-honolulu-ave.json)",
+  "aliases": [
+    "2900 honolulu ave"
+  ],
+  "street": "honolulu",
+  "matched": "2900 HONOLULU AVE, GLENDALE, CA, 91214",
+  "lat": 34.2124650000011,
+  "lon": -118.24204500000212,
+  "score": 100,
+  "zoning": {
+    "code": "C1",
+    "raw": {
+      "OBJECTID": 1674,
+      "ZONENUM": 510,
+      "ZONE_DISTR": "C1",
+      "ZONE_DESC": "NEIGHBORHOOD COMMERCIAL",
+      "GENPLAN": 510,
+      "GPLANDESC": "NEIGHBORHOOD",
+      "Type": 500
+    }
+  },
+  "hazards": [
+    {
+      "kind": "wildfire",
+      "status": "in_zone",
+      "detail": "Very High"
+    },
+    {
+      "kind": "flood",
+      "status": "not_in_zone",
+      "detail": "Zone X (area of minimal flood hazard)"
+    },
+    {
+      "kind": "seismic",
+      "status": "in_zone",
+      "detail": "Liquefaction zone"
+    },
+    {
+      "kind": "dam_inundation",
+      "status": "not_in_zone"
+    }
+  ],
+  "nearby": [
+    {
+      "kind": "bus_stops",
+      "name": "WB Honolulu NS La Crescenta",
+      "distanceM": 236
+    },
+    {
+      "kind": "bus_stops",
+      "name": "SB La Crescenta NS Piedmont",
+      "distanceM": 249
+    },
+    {
+      "kind": "parks",
+      "name": "Rockhaven Sanitarium",
+      "distanceM": 287,
+      "address": "2713 Honolulu Ave"
+    },
+    {
+      "kind": "fire_stations",
+      "name": "Fire Station 29",
+      "distanceM": 1003,
+      "address": "2465 Honolulu Ave."
+    },
+    {
+      "kind": "libraries",
+      "name": "Montrose Library",
+      "distanceM": 1038,
+      "address": "2465 Honolulu Ave"
+    },
+    {
+      "kind": "parks",
+      "name": "Oakmont View Park",
+      "distanceM": 1317,
+      "address": "2940 Oakmont View Dr"
+    },
+    {
+      "kind": "schools",
+      "name": "Fremont Elementary",
+      "distanceM": 1691,
+      "address": "3320 Las Palmas Avenue"
+    },
+    {
+      "kind": "schools",
+      "name": "Lincoln Elementary",
+      "distanceM": 1983,
+      "address": "4310 New York Avenue"
+    },
+    {
+      "kind": "fire_stations",
+      "name": "Fire Station 28",
+      "distanceM": 2195,
+      "address": "4410 New York Ave."
+    },
+    {
+      "kind": "libraries",
+      "name": "Brand Library & Art Center",
+      "distanceM": 4588,
+      "address": "1601 W Mountain St"
+    },
+    {
+      "kind": "police_stations",
+      "name": "Glendale Police Department",
+      "distanceM": 7229
+    }
+  ]
+}

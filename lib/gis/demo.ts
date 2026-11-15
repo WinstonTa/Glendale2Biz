@@ -42,4 +42,13 @@ export const DEMO_ADDRESSES: readonly DemoAddress[] = [
     expectedVerdict: "not_allowed",
     fixture: "1200-cleveland-rd.json",
   },
+  {
+    id: "honolulu",
+    address: "2900 Honolulu Ave, Glendale, CA 91214",
+    label: { en: "Honolulu Ave, Montrose (hazard zones)", es: "Honolulu Ave, Montrose (zonas de riesgo)", hy: "Հոնոլուլու Ավ., Մոնտրոզ (վտանգի գոտիներ)" },
+    zoneCode: "C1",
+    exampleBusinessTypeId: "cafe",
+    expectedVerdict: "allowed",
+    fixture: "2900-honolulu-ave.json",
+  },
 ] as const;
