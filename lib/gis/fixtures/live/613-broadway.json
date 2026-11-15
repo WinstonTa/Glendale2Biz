@@ -1,0 +1,61 @@
+{
+  "recordedAt": "2026-11-15T00:00:32.347Z",
+  "address": "613 Broadway",
+  "calls": [
+    {
+      "tool": "geocode_address",
+      "args": {
+        "address": "613 Broadway"
+      },
+      "ms": 49,
+      "result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "{\"status\":\"ambiguous\",\"candidates\":[{\"address\":\"613 E BROADWAY, GLENDALE, CA, 91206\",\"score\":91.18,\"match_type\":\"PointAddress\",\"lat\":34.146621000001126,\"lon\":-118.24825050000213,\"in_city\":true},{\"address\":\"613 W BROADWAY, GLENDALE, 91204\",\"score\":91.18,\"match_type\":\"StreetAddress\",\"lat\":34.14684929569969,\"lon\":-118.26806841825395,\"in_city\":true},{\"address\":\"BROADWAY, GLENDALE, 91205\",\"score\":78.18,\"match_type\":\"StreetName\",\"lat\":34.1462790000011,\"lon\":-118.25501625000214,\"in_city\":true}],\"notes\":[],\"_meta\":{\"source\":\"City of Glendale\",\"url\":\"https://gismap.glendaleca.gov/arcgis/rest/services/Common/CAD_SiteAddress_Street/GeocodeServer\",\"cached\":true,\"as_of\":\"2026-11-15T00:00:21+00:00\",\"stale\":false}}"
+          }
+        ],
+        "structuredContent": {
+          "status": "ambiguous",
+          "location": null,
+          "candidates": [
+            {
+              "address": "613 E BROADWAY, GLENDALE, CA, 91206",
+              "score": 91.18,
+              "match_type": "PointAddress",
+              "lat": 34.146621000001126,
+              "lon": -118.24825050000213,
+              "in_city": true
+            },
+            {
+              "address": "613 W BROADWAY, GLENDALE, 91204",
+              "score": 91.18,
+              "match_type": "StreetAddress",
+              "lat": 34.14684929569969,
+              "lon": -118.26806841825395,
+              "in_city": true
+            },
+            {
+              "address": "BROADWAY, GLENDALE, 91205",
+              "score": 78.18,
+              "match_type": "StreetName",
+              "lat": 34.1462790000011,
+              "lon": -118.25501625000214,
+              "in_city": true
+            }
+          ],
+          "notes": [],
+          "_meta": {
+            "source": "City of Glendale",
+            "url": "https://gismap.glendaleca.gov/arcgis/rest/services/Common/CAD_SiteAddress_Street/GeocodeServer",
+            "cached": true,
+            "as_of": "2026-11-15T00:00:21+00:00",
+            "stale": false,
+            "source_last_edit": null
+          }
+        },
+        "isError": false
+      }
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "recordedAt": "2026-11-14T23:54:41.995Z",
+  "address": "Broadway",
+  "calls": [
+    {
+      "tool": "geocode_address",
+      "args": {
+        "address": "Broadway"
+      },
+      "ms": 246,
+      "result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "{\"status\":\"ambiguous\",\"candidates\":[{\"address\":\"BROADWAY, GLENDALE, 91205\",\"score\":100.0,\"match_type\":\"StreetName\",\"lat\":34.1462790000011,\"lon\":-118.25501625000214,\"in_city\":true}],\"notes\":[\"Only the street matched, not the house number.\"],\"_meta\":{\"source\":\"City of Glendale\",\"url\":\"https://gismap.glendaleca.gov/arcgis/rest/services/Common/CAD_SiteAddress_Street/GeocodeServer\",\"cached\":false,\"as_of\":\"2026-11-14T23:54:40+00:00\",\"stale\":false}}"
+          }
+        ],
+        "structuredContent": {
+          "status": "ambiguous",
+          "location": null,
+          "candidates": [
+            {
+              "address": "BROADWAY, GLENDALE, 91205",
+              "score": 100,
+              "match_type": "StreetName",
+              "lat": 34.1462790000011,
+              "lon": -118.25501625000214,
+              "in_city": true
+            }
+          ],
+          "notes": [
+            "Only the street matched, not the house number."
+          ],
+          "_meta": {
+            "source": "City of Glendale",
+            "url": "https://gismap.glendaleca.gov/arcgis/rest/services/Common/CAD_SiteAddress_Street/GeocodeServer",
+            "cached": false,
+            "as_of": "2026-11-14T23:54:40+00:00",
+            "stale": false,
+            "source_last_edit": null
+          }
+        },
+        "isError": false
+      }
+    }
+  ]
+}

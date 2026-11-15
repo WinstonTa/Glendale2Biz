@@ -1,0 +1,22 @@
+{
+  "recordedAt": "2026-11-14T23:54:41.748Z",
+  "address": "asdf qwer zxcv",
+  "calls": [
+    {
+      "tool": "geocode_address",
+      "args": {
+        "address": "asdf qwer zxcv"
+      },
+      "ms": 244,
+      "result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "{\"error\":\"No address in Glendale matched.\",\"suggestions\":[\"Check the spelling and include the house number and street, e.g. '613 E Broadway'.\",\"Place names (e.g. 'Glendale Galleria') aren't supported; use a street address.\",\"Give the location as lat/lon instead; coordinates skip the geocoder.\"]}"
+          }
+        ],
+        "isError": true
+      }
+    }
+  ]
+}

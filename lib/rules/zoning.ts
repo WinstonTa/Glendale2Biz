@@ -3,8 +3,9 @@ import { L } from "./text";
 
 /**
  * Glendale zoning guidance table.
- * Zone families are based on Glendale Municipal Code Title 30 zone names.
- * TODO(live): confirm exact codes/field values returned by the GIS `zoning` dataset.
+ * Live-verified 2026-11-14 against the GIS `zoning` dataset (field ZONE_DISTR, e.g. "DSP/CC", "C3 III PPD",
+ * "R 1250 PS", "IMU R", "R1 I HD"). Every distinct ZONE_DISTR value in the dataset maps to a family below.
+ * Suffix tokens (I–IV height/FAR district, HD, H, P, PS, PPD, PRD, ASOZ) don't change the use family.
  * This is GUIDANCE, never a ruling. Unknown code ⇒ "unknown".
  */
 export type ZoneFamily =
@@ -15,6 +16,11 @@ export type ZoneFamily =
   | "CR"
   | "CO"
   | "CA"
+  | "CH"
+  | "CE"
+  | "CPD"
+  | "MS"
+  | "TOD"
   | "DSP"
   | "SFMU"
   | "IMU"
@@ -27,7 +33,6 @@ const C: VerdictStatus = "conditional";
 const N: VerdictStatus = "not_allowed";
 
 type Row = Record<BusinessCategory, VerdictStatus>;
-//                       food retail pcare fit  auto svc  child home tech
 const row = (food: VerdictStatus, retail: VerdictStatus, personal_care: VerdictStatus, fitness: VerdictStatus, auto: VerdictStatus, services: VerdictStatus, childcare: VerdictStatus, home_based: VerdictStatus, tech: VerdictStatus): Row => ({
   food, retail, personal_care, fitness, auto, services, childcare, home_based, tech,
 });
@@ -41,6 +46,11 @@ export const ZONE_MATRIX: Record<ZoneFamily, Row> = {
   CR: row(A, A, A, A, C, A, C, A, A),
   CO: row(C, C, C, C, N, A, C, A, A),
   CA: row(C, A, C, C, A, C, N, A, C),
+  CH: row(C, C, C, C, N, C, C, A, C),
+  CE: row(N, C, N, C, N, C, N, A, N),
+  CPD: row(C, C, C, C, C, C, C, A, C),
+  MS: row(C, C, C, C, N, A, C, A, A),
+  TOD: row(A, A, A, A, N, A, C, A, A),
   DSP: row(A, A, A, A, N, A, C, A, A),
   SFMU: row(A, A, A, C, C, A, C, A, A),
   IMU: row(C, A, A, C, A, A, C, A, A),
@@ -54,12 +64,17 @@ export const ZONE_NAMES: Record<ZoneFamily, LocalizedText> = {
   C1: L("Neighborhood Commercial", "Comercial de vecindario", "Թաղային առևտրային"),
   C2: L("Community Commercial", "Comercial comunitario", "Համայնքային առևտրային"),
   C3: L("Commercial Service", "Comercial de servicios", "Առևտրային սպասարկման"),
-  CR: L("Commercial Regional", "Comercial regional", "Տարածաշրջանային առևտրային"),
+  CR: L("Commercial Retail", "Comercial minorista", "Մանրածախ առևտրային"),
   CO: L("Commercial Office", "Comercial de oficinas", "Գրասենյակային առևտրային"),
   CA: L("Commercial Auto", "Comercial automotriz", "Ավտոմոբիլային առևտրային"),
+  CH: L("Commercial Hillside", "Comercial de ladera", "Լանջային առևտրային"),
+  CE: L("Commercial Equestrian Services", "Comercial de servicios ecuestres", "Ձիասպորտի ծառայությունների առևտրային"),
+  CPD: L("Commercial Planned Development", "Desarrollo comercial planificado", "Պլանավորված առևտրային կառուցապատում"),
+  MS: L("Medical Services", "Servicios médicos", "Բժշկական ծառայություններ"),
+  TOD: L("Transit Oriented District", "Distrito orientado al transporte público", "Հասարակական տրանսպորտին կողմնորոշված թաղամաս"),
   DSP: L("Downtown Specific Plan", "Plan Específico del Centro", "Կենտրոնի հատուկ պլան"),
-  SFMU: L("San Fernando Road Corridor Mixed Use", "Uso mixto del corredor San Fernando Road", "Սան Ֆերնանդո Ռոուդ միջանցքի խառը նշանակության"),
-  IMU: L("Industrial/Commercial Mixed Use", "Uso mixto industrial/comercial", "Արդյունաբերական/առևտրային խառը նշանակության"),
+  SFMU: L("San Fernando Road Commercial/Residential Mixed Use", "Uso mixto comercial/residencial de San Fernando Road", "Սան Ֆերնանդո Ռոուդի առևտրային/բնակելի խառը նշանակության"),
+  IMU: L("Industrial Mixed Use", "Uso mixto industrial", "Արդյունաբերական խառը նշանակության"),
   IMU_R: L("Industrial/Commercial–Residential Mixed Use", "Uso mixto industrial/comercial–residencial", "Արդյունաբերական/առևտրային–բնակելի խառը նշանակության"),
   IND: L("Industrial", "Industrial", "Արդյունաբերական"),
   public: L("Public / Open Space", "Público / Espacio abierto", "Հանրային / Բաց տարածք"),
@@ -67,30 +82,64 @@ export const ZONE_NAMES: Record<ZoneFamily, LocalizedText> = {
 
 const RESIDENTIAL_NAMES: Record<string, LocalizedText> = {
   ROS: L("Residential Open Space", "Residencial de espacio abierto", "Բնակելի բաց տարածք"),
-  R1R: L("Restricted Residential (single-family)", "Residencial restringido (unifamiliar)", "Սահմանափակ բնակելի (առանձնատներ)"),
-  R1: L("Low Density Residential (single-family)", "Residencial de baja densidad (unifamiliar)", "Ցածր խտության բնակելի (առանձնատներ)"),
+  R1R: L("Restricted Single-Family Residential", "Residencial unifamiliar restringido", "Սահմանափակ առանձնատնային բնակելի"),
+  R1: L("Low Density Single-Family Residential", "Residencial unifamiliar de baja densidad", "Ցածր խտության առանձնատնային բնակելի"),
+  "R-3050": L("Moderate Density Residential", "Residencial de densidad moderada", "Չափավոր խտության բնակելի"),
+  "R-2250": L("Medium Density Residential", "Residencial de densidad media", "Միջին խտության բնակելի"),
+  "R-1650": L("Medium-High Density Residential", "Residencial de densidad media-alta", "Միջին-բարձր խտության բնակելի"),
+  "R-1250": L("High Density Residential", "Residencial de alta densidad", "Բարձր խտության բնակելի"),
 };
 
-/** Normalize a raw code: uppercase, trim, drop height-district / overlay suffixes like "-II" or " (PD)". */
+const PUBLIC_NAMES: Record<string, LocalizedText> = {
+  SR: L("Special Recreation", "Recreación especial", "Հատուկ հանգստի գոտի"),
+  CEM: L("Cemetery", "Cementerio", "Գերեզմանատուն"),
+  T: L("Transportation", "Transporte", "Տրանսպորտ"),
+};
+
+/** Downtown Specific Plan sub-districts seen in live data (ZONE_DISTR "DSP/<sub>"). */
+const DSP_SUBDISTRICTS: Record<string, LocalizedText> = {
+  CC: L("Civic Center", "Centro Cívico", "Քաղաքացիական կենտրոն"),
+  BC: L("Broadway Center", "Centro Broadway", "Բրոդվեյ կենտրոն"),
+  EB: L("East Broadway", "East Broadway", "Արևելյան Բրոդվեյ"),
+  GAT: L("Gateway", "Gateway (entrada)", "Գեյթուեյ (մուտք)"),
+  GAL: L("Galleria", "Galleria", "Գալերիա"),
+  AE: L("Art & Entertainment", "Arte y entretenimiento", "Արվեստ և ժամանց"),
+  AT: L("Alex Theatre", "Alex Theatre", "Ալեքս թատրոն"),
+  MO: L("Mid-Orange", "Mid-Orange", "Միդ-Օրանջ"),
+  OC: L("Orange Central", "Orange Central", "Օրանջ Սենթրալ"),
+  TCSP: L("Town Center", "Centro urbano", "Քաղաքային կենտրոն"),
+  TD: L("Transitional District", "Distrito de transición", "Անցումային թաղամաս"),
+};
+
+/**
+ * Normalize a raw ZONE_DISTR to its base code: uppercase, drop "(…)", drop height/FAR and overlay
+ * suffix tokens (they don't change the use family). Examples: "C3 III PPD"→"C3", "R 1250 PS"→"R-1250",
+ * "IMU R"→"IMU-R", "R1 I HD"→"R1", "DSP/CC"→"DSP/CC", "DSP/GAL ASOZ"→"DSP/GAL", "C3-II"→"C3".
+ */
 export function normalizeZoneCode(raw: string | null | undefined): string | null {
   if (!raw) return null;
-  let s = String(raw).toUpperCase().trim();
-  s = s.replace(/\s*\(.*?\)\s*/g, "").replace(/\s+/g, "");
-  s = s.replace(/-(I{1,3}|IV)$/, ""); // height districts
-  return s || null;
+  const s = String(raw).toUpperCase().replace(/\(.*?\)/g, " ").trim();
+  if (!s) return null;
+  const tokens = s.split(/\s+/);
+  let base: string;
+  if (tokens[0] === "R" && /^\d{3,4}$/.test(tokens[1] ?? "")) base = `R-${tokens[1]}`;
+  else if (tokens[0] === "IMU" && tokens[1] === "R") base = "IMU-R";
+  else base = tokens[0];
+  base = base.replace(/-(I{1,3}|IV)$/, "");
+  return base || null;
 }
 
 export function zoneFamily(rawCode: string | null | undefined): ZoneFamily | null {
   const c = normalizeZoneCode(rawCode);
   if (!c) return null;
   if (c === "ROS" || /^R1R?$/.test(c) || /^R-?\d{3,4}$/.test(c) || /^R[2-4]$/.test(c)) return "residential";
-  if (c.startsWith("DSP") || c === "DTSP") return "DSP";
+  if (c === "DSP" || c.startsWith("DSP/") || c === "DTSP") return "DSP";
   if (c === "IMU-R" || c === "IMUR") return "IMU_R";
   if (c === "IMU") return "IMU";
   if (c.startsWith("SFMU")) return "SFMU";
   if (c === "IND" || c === "M1" || c === "M2" || c === "M3") return "IND";
-  if (c === "C1" || c === "C2" || c === "C3" || c === "CR" || c === "CO" || c === "CA") return c;
-  if (c === "PS" || c === "SR" || c === "P" || c === "OS") return "public";
+  if (["C1", "C2", "C3", "CR", "CO", "CA", "CH", "CE", "CPD", "MS", "TOD"].includes(c)) return c as ZoneFamily;
+  if (c === "PS" || c === "SR" || c === "P" || c === "OS" || c === "CEM" || c === "T") return "public";
   return null;
 }
 
@@ -99,8 +148,17 @@ export function zoneName(rawCode: string | null | undefined): LocalizedText | nu
   const fam = zoneFamily(rawCode);
   if (!c || !fam) return null;
   if (fam === "residential") {
-    if (RESIDENTIAL_NAMES[c]) return RESIDENTIAL_NAMES[c];
-    return L(`Multi-family Residential (${c})`, `Residencial multifamiliar (${c})`, `Բազմաբնակարան բնակելի (${c})`);
+    const key = /^R\d{4}$/.test(c) ? `R-${c.slice(1)}` : c;
+    return (
+      RESIDENTIAL_NAMES[key] ??
+      L(`Multi-family Residential (${c})`, `Residencial multifamiliar (${c})`, `Բազմաբնակարան բնակելի (${c})`)
+    );
+  }
+  if (fam === "public" && PUBLIC_NAMES[c]) return PUBLIC_NAMES[c];
+  if (fam === "DSP") {
+    const sub = DSP_SUBDISTRICTS[c.split("/")[1] ?? ""];
+    const d = ZONE_NAMES.DSP;
+    if (sub) return L(`${d.en} – ${sub.en}`, `${d.es} – ${sub.es}`, `${d.hy} – ${sub.hy}`);
   }
   return ZONE_NAMES[fam];
 }

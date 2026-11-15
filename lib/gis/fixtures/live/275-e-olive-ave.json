@@ -1,0 +1,22 @@
+{
+  "recordedAt": "2026-11-14T23:54:41.501Z",
+  "address": "275 E Olive Ave, Burbank, CA 91502",
+  "calls": [
+    {
+      "tool": "geocode_address",
+      "args": {
+        "address": "275 E Olive Ave, Burbank, CA 91502"
+      },
+      "ms": 56,
+      "result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "{\"error\":\"The address is outside the Glendale city limits. The city's geocoder also covers neighboring areas such as Burbank and unincorporated La Crescenta.\",\"suggestions\":[\"Check the address is in Glendale, CA.\",\"Hazard tools also cover up to 2 km outside Glendale if you give lat/lon.\"],\"candidates\":[{\"address\":\"275 E OLIVE AVE, BURBANK, 91502\",\"score\":99.23,\"match_type\":\"StreetAddress\",\"lat\":34.18176003585705,\"lon\":-118.3078665133615,\"in_city\":false},{\"address\":\"275 W OLIVE AVE, BURBANK, 91502\",\"score\":92.43,\"match_type\":\"StreetAddress\",\"lat\":34.17407127176459,\"lon\":-118.315991799565,\"in_city\":false}]}"
+          }
+        ],
+        "isError": true
+      }
+    }
+  ]
+}

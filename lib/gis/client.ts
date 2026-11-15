@@ -5,7 +5,7 @@
 import { Client } from "@modelcontextprotocol/sdk/client/index.js";
 import { StreamableHTTPClientTransport } from "@modelcontextprotocol/sdk/client/streamableHttp.js";
 import type { ResourceKind } from "../contracts";
-import { inGlendaleBBox, parseGeocode, parseHazards, parseNearby, parseZoning, toolPayload } from "./parse";
+import { inGlendaleBBox, parseGeocode, parseHazards, parseNearby, parseZoning, toolPayload, ToolError, type GeocodeCandidate } from "./parse";
 import { GisError, type GisLookup, type GisProvider } from "./types";
 
 const TOOL_TIMEOUT_MS = 8000;
@@ -67,32 +67,62 @@ function errText(e: unknown, key?: string): string {
 export async function liveLookup(tools: ToolCaller, address: string): Promise<GisLookup> {
   const warnings: string[] = [];
 
+  // Live shapes (verified 2026-11-14):
+  //   matched:   { status: "matched", location: { lat, lon, in_city, matched_address, score }, candidates: [...] }
+  //   ambiguous: { status: "ambiguous", location: null, candidates: [{ address, match_type: "StreetName", ... }], notes }
+  //   not found: isError, { error: "No address in Glendale matched.", suggestions }
+  //   outside:   isError, { error: "The address is outside the Glendale city limits. ...", candidates: [...] }
   let geo: unknown;
   try {
     geo = await tools.call("geocode_address", { address });
   } catch (e) {
     const msg = errText(e);
-    if (/not\s*found|no (match|result|candidate)/i.test(msg)) {
-      throw new GisError("ADDRESS_NOT_FOUND", "We couldn't find that address in Glendale.");
-    }
-    if (/outside|not in glendale|out of (bounds|area)/i.test(msg)) {
+    if (/outside|not in glendale|city limits|out of (bounds|area)/i.test(msg)) {
       throw new GisError("OUTSIDE_GLENDALE", "That address appears to be outside the City of Glendale.");
     }
-    throw new GisError("GIS_UNAVAILABLE", "Glendale GIS geocoder is unavailable right now.");
+    if (/unavailable|timed? ?out|timeout|upstream|rate limit|internal/i.test(msg) || !(e instanceof ToolError)) {
+      throw new GisError("GIS_UNAVAILABLE", "Glendale GIS geocoder is unavailable right now.");
+    }
+    throw new GisError("ADDRESS_NOT_FOUND", "We couldn't find that address in Glendale. Include the house number and street, e.g. 613 E Broadway.");
   }
 
-  const cands = parseGeocode(geo, address);
-  if (!cands.length) throw new GisError("ADDRESS_NOT_FOUND", "We couldn't find that address in Glendale.");
-  const best = cands[0];
+  const geoObj = (typeof geo === "object" && geo !== null ? geo : {}) as Record<string, unknown>;
+  const status = typeof geoObj.status === "string" ? geoObj.status.toLowerCase() : undefined;
+  const cands = parseGeocode(geoObj.candidates ?? geo, address);
+  let pickedFromAmbiguous: GeocodeCandidate | undefined;
+  if (status === "ambiguous" || status === "multiple") {
+    // The geocoder also knows Burbank and La Crescenta and flags some of them in_city: true,
+    // so keep only real Glendale house-number matches.
+    const glendale = cands.filter(
+      (c) => c.inCity !== false && /,\s*GLENDALE\b/i.test(c.matched) && !/street\s*name/i.test(c.matchType ?? "") && /^\d/.test(c.matched),
+    );
+    const distinct = [...new Map(glendale.map((c) => [c.matched, c])).values()];
+    if (distinct.length === 1) {
+      pickedFromAmbiguous = distinct[0];
+      warnings.push(`Address matched more than one place; using the only Glendale match: ${distinct[0].matched}.`);
+    } else {
+      const streetOnly = distinct.length === 0;
+      throw new GisError(
+        "AMBIGUOUS_ADDRESS",
+        streetOnly
+          ? "Only the street matched. Add the house number, e.g. 613 E Broadway."
+          : "That address matches several places. Pick one.",
+        distinct.map((c) => c.matched).slice(0, 5), // never offer street-only chips: they'd come back ambiguous again
+      );
+    }
+  }
+  if (status && status !== "matched" && /not|no_?match|none/.test(status)) {
+    throw new GisError("ADDRESS_NOT_FOUND", "We couldn't find that address in Glendale.");
+  }
+  // Prefer the server's chosen location; fall back to the best candidate.
+  const loc = parseGeocode(geoObj.location ? [geoObj.location] : [], address)[0];
+  const best = pickedFromAmbiguous ?? loc ?? cands[0];
+  if (!best) throw new GisError("ADDRESS_NOT_FOUND", "We couldn't find that address in Glendale.");
   if (best.score !== undefined && best.score < 60) {
     throw new GisError("ADDRESS_NOT_FOUND", "We couldn't find a confident match for that address.", cands.slice(0, 3).map((c) => c.matched));
   }
-  const distinct = [...new Set(cands.map((c) => c.matched))];
-  if (best.score !== undefined && best.score < 80 && distinct.length > 1) {
-    throw new GisError("AMBIGUOUS_ADDRESS", "That address matches several places. Pick one.", distinct.slice(0, 5));
-  }
   const cityLooksWrong = best.city !== undefined && !/glendale/i.test(best.city);
-  if (best.inCity === false || cityLooksWrong || !inGlendaleBBox(best.lat, best.lon)) {
+  if (best.inCity === false || cityLooksWrong || (best.inCity !== true && !inGlendaleBBox(best.lat, best.lon))) {
     throw new GisError("OUTSIDE_GLENDALE", "That address appears to be outside the City of Glendale.");
   }
 

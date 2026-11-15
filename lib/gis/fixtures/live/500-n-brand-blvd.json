@@ -1,0 +1,944 @@
+{
+  "recordedAt": "2026-11-14T23:54:40.961Z",
+  "address": "500 N Brand Blvd, Glendale, CA",
+  "calls": [
+    {
+      "tool": "geocode_address",
+      "args": {
+        "address": "500 N Brand Blvd, Glendale, CA"
+      },
+      "ms": 114,
+      "result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "{\"status\":\"matched\",\"location\":{\"lat\":34.15336200000111,\"lon\":-118.25464500000213,\"in_city\":true,\"source\":\"geocoder\",\"matched_address\":\"500 N BRAND BLVD, GLENDALE, CA, 91203\",\"score\":100.0},\"candidates\":[{\"address\":\"500 N BRAND BLVD, GLENDALE, CA, 91203\",\"score\":100.0,\"match_type\":\"PointAddress\",\"lat\":34.15336200000111,\"lon\":-118.25464500000213,\"in_city\":true}],\"notes\":[],\"_meta\":{\"source\":\"City of Glendale\",\"url\":\"https://gismap.glendaleca.gov/arcgis/rest/services/Common/CAD_SiteAddress_Street/GeocodeServer\",\"cached\":false,\"as_of\":\"2026-11-14T23:54:39+00:00\",\"stale\":false}}"
+          }
+        ],
+        "structuredContent": {
+          "status": "matched",
+          "location": {
+            "lat": 34.15336200000111,
+            "lon": -118.25464500000213,
+            "in_city": true,
+            "source": "geocoder",
+            "matched_address": "500 N BRAND BLVD, GLENDALE, CA, 91203",
+            "score": 100
+          },
+          "candidates": [
+            {
+              "address": "500 N BRAND BLVD, GLENDALE, CA, 91203",
+              "score": 100,
+              "match_type": "PointAddress",
+              "lat": 34.15336200000111,
+              "lon": -118.25464500000213,
+              "in_city": true
+            }
+          ],
+          "notes": [],
+          "_meta": {
+            "source": "City of Glendale",
+            "url": "https://gismap.glendaleca.gov/arcgis/rest/services/Common/CAD_SiteAddress_Street/GeocodeServer",
+            "cached": false,
+            "as_of": "2026-11-14T23:54:39+00:00",
+            "stale": false,
+            "source_last_edit": null
+          }
+        },
+        "isError": false
+      }
+    },
+    {
+      "tool": "query_dataset",
+      "args": {
+        "dataset": "zoning",
+        "near": {
+          "lat": 34.15336200000111,
+          "lon": -118.25464500000213,
+          "radius_m": 0
+        }
+      },
+      "ms": 55,
+      "result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "{\"dataset\":\"zoning\",\"total\":1,\"offset\":0,\"returned\":1,\"features\":[{\"attributes\":{\"OBJECTID\":1969,\"ZONENUM\":900,\"ZONE_DISTR\":\"DSP/GAT\",\"ZONE_DESC\":\"DSP / GATEWAY\",\"GENPLAN\":901,\"GPLANDESC\":\"DOWNTOWN SPECIFIC PLAN\",\"Type\":500},\"ref\":{\"dataset\":\"zoning\",\"object_id\":1969,\"layer_url\":\"https://gismap.glendaleca.gov/arcgis/rest/services/Common/Zoning/FeatureServer/2\"},\"distance_m\":0}],\"notes\":[\"City of Glendale GIS data is provided for general information and is not a substitute for legal descriptions or actual surveys.\",\"Distances are straight-line meters to the nearest edge (0 when inside).\"],\"_meta\":{\"source\":\"City of Glendale\",\"url\":\"https://gismap.glendaleca.gov/arcgis/rest/services/Common/Zoning/FeatureServer/2\",\"cached\":true,\"as_of\":\"2026-09-26T02:33:03+00:00\",\"stale\":false}}"
+          }
+        ],
+        "structuredContent": {
+          "dataset": "zoning",
+          "total": 1,
+          "offset": 0,
+          "returned": 1,
+          "next_offset": null,
+          "features": [
+            {
+              "attributes": {
+                "OBJECTID": 1969,
+                "ZONENUM": 900,
+                "ZONE_DISTR": "DSP/GAT",
+                "ZONE_DESC": "DSP / GATEWAY",
+                "GENPLAN": 901,
+                "GPLANDESC": "DOWNTOWN SPECIFIC PLAN",
+                "Type": 500
+              },
+              "ref": {
+                "dataset": "zoning",
+                "object_id": 1969,
+                "global_id": null,
+                "layer_url": "https://gismap.glendaleca.gov/arcgis/rest/services/Common/Zoning/FeatureServer/2"
+              },
+              "distance_m": 0,
+              "geometry": null,
+              "geometry_omitted": null
+            }
+          ],
+          "notes": [
+            "City of Glendale GIS data is provided for general information and is not a substitute for legal descriptions or actual surveys.",
+            "Distances are straight-line meters to the nearest edge (0 when inside)."
+          ],
+          "_meta": {
+            "source": "City of Glendale",
+            "url": "https://gismap.glendaleca.gov/arcgis/rest/services/Common/Zoning/FeatureServer/2",
+            "cached": true,
+            "as_of": "2026-09-26T02:33:03+00:00",
+            "stale": false,
+            "source_last_edit": null
+          }
+        },
+        "isError": false
+      }
+    },
+    {
+      "tool": "hazards_at_location",
+      "args": {
+        "location": {
+          "lat": 34.15336200000111,
+          "lon": -118.25464500000213
+        }
+      },
+      "ms": 66,
+      "result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "{\"location\":{\"lat\":34.15336200000111,\"lon\":-118.25464500000213,\"in_city\":true,\"source\":\"coordinates\"},\"wildfire\":{\"dataset\":\"calfire_fhsz_lra\",\"title\":\"Fire Hazard Severity Zones (Local Responsibility Area, 2025)\",\"status\":\"not_in_zone\",\"matches\":[{\"attributes\":{\"OBJECTID\":715,\"SRA\":\"LRA\",\"FHSZ\":-3,\"FHSZ_Description\":\"NonWildland\"},\"ref\":{\"dataset\":\"calfire_fhsz_lra\",\"object_id\":715,\"layer_url\":\"https://services1.arcgis.com/jUJYIo9tSA7EHvfZ/arcgis/rest/services/FHSALRA25_v1_All/FeatureServer/0\"}}],\"nearest_by_class\":{\"High\":{\"attributes\":{\"OBJECTID\":4691,\"SRA\":\"LRA\",\"FHSZ\":2,\"FHSZ_Description\":\"High\"},\"ref\":{\"dataset\":\"calfire_fhsz_lra\",\"object_id\":4691,\"layer_url\":\"https://services1.arcgis.com/jUJYIo9tSA7EHvfZ/arcgis/rest/services/FHSALRA25_v1_All/FeatureServer/0\"},\"distance_m\":1085,\"exact\":true},\"Moderate\":{\"attributes\":{\"OBJECTID\":2729,\"SRA\":\"LRA\",\"FHSZ\":1,\"FHSZ_Description\":\"Moderate\"},\"ref\":{\"dataset\":\"calfire_fhsz_lra\",\"object_id\":2729,\"layer_url\":\"https://services1.arcgis.com/jUJYIo9tSA7EHvfZ/arcgis/rest/services/FHSALRA25_v1_All/FeatureServer/0\"},\"distance_m\":951,\"exact\":true},\"NonWildland\":{\"attributes\":{\"OBJECTID\":715,\"SRA\":\"LRA\",\"FHSZ\":-3,\"FHSZ_Description\":\"NonWildland\"},\"ref\":{\"dataset\":\"calfire_fhsz_lra\",\"object_id\":715,\"layer_url\":\"https://services1.arcgis.com/jUJYIo9tSA7EHvfZ/arcgis/rest/services/FHSALRA25_v1_All/FeatureServer/0\"},\"distance_m\":0,\"exact\":true},\"Very High\":{\"attributes\":{\"OBJECTID\":5528,\"SRA\":\"LRA\",\"FHSZ\":3,\"FHSZ_Description\":\"Very High\"},\"ref\":{\"dataset\":\"calfire_fhsz_lra\",\"object_id\":5528,\"layer_url\":\"https://services1.arcgis.com/jUJYIo9tSA7EHvfZ/arcgis/rest/services/FHSALRA25_v1_All/FeatureServer/0\"},\"distance_m\":1202,\"exact\":true}},\"class_field\":\"FHSZ_Description\",\"notes\":[\"CAL FIRE classes this location as NonWildland (unzoned): it is not in a mapped fire hazard severity zone. This does not mean there is no wildfire risk; embers and structure-to-structure spread can reach unzoned areas.\"],\"disclaimer\":\"Regulatory hazard zone map, not a site-specific assessment. Being outside a mapped zone does not mean there is no hazard.\",\"_meta\":{\"source\":\"CAL FIRE\",\"url\":\"https://services1.arcgis.com/jUJYIo9tSA7EHvfZ/arcgis/rest/services/FHSALRA25_v1_All/FeatureServer/0\",\"cached\":true,\"as_of\":\"2026-09-26T02:32:11+00:00\",\"stale\":false,\"source_last_edit\":\"2026-02-02T17:34:07+00:00\"}},\"flood\":{\"dataset\":\"fema_flood_zones\",\"title\":\"FEMA National Flood Hazard Layer: Flood Hazard Zones\",\"status\":\"in_zone\",\"matches\":[{\"attributes\":{\"OBJECTID\":24293351,\"GlobalID\":\"{06B841F4-4F91-449C-9D54-2777D2C8CD50}\",\"FLD_ZONE\":\"X\",\"ZONE_SUBTY\":\"AREA OF MINIMAL FLOOD HAZARD\",\"SFHA_TF\":\"F\",\"STATIC_BFE\":-9999.0,\"DEPTH\":-9999.0,\"LEN_UNIT\":\"\",\"STUDY_TYP\":\"NP\",\"DFIRM_ID\":\"06037C\",\"SOURCE_CIT\":\"06037C_STUDY2\"},\"ref\":{\"dataset\":\"fema_flood_zones\",\"object_id\":24293351,\"global_id\":\"{06B841F4-4F91-449C-9D54-2777D2C8CD50}\",\"layer_url\":\"https://hazards.fema.gov/arcgis/rest/services/public/NFHL/MapServer/28\"}}],\"nearest_by_class\":{\"A\":{\"attributes\":{\"OBJECTID\":24288328,\"GlobalID\":\"{AB08DFBF-6BFF-498D-ACDC-7DBD9B641F64}\",\"FLD_ZONE\":\"A\",\"ZONE_SUBTY\":\"1 PCT ANNUAL CHANCE FLOOD HAZARD CONTAINED IN CHANNEL\",\"SFHA_TF\":\"T\",\"STATIC_BFE\":-9999.0,\"DEPTH\":-9999.0,\"LEN_UNIT\":\"\",\"STUDY_TYP\":\"NP\",\"DFIRM_ID\":\"06037C\",\"SOURCE_CIT\":\"06037C_FIRM1\"},\"ref\":{\"dataset\":\"fema_flood_zones\",\"object_id\":24288328,\"global_id\":\"{AB08DFBF-6BFF-498D-ACDC-7DBD9B641F64}\",\"layer_url\":\"https://hazards.fema.gov/arcgis/rest/services/public/NFHL/MapServer/28\"},\"distance_m\":3231,\"exact\":true},\"AE\":{\"attributes\":{\"OBJECTID\":24288619,\"GlobalID\":\"{9648A510-4EDD-4936-997A-9135DEFB22D7}\",\"FLD_ZONE\":\"AE\",\"ZONE_SUBTY\":null,\"SFHA_TF\":\"T\",\"STATIC_BFE\":-9999.0,\"DEPTH\":-9999.0,\"LEN_UNIT\":\"\",\"STUDY_TYP\":\"NP\",\"DFIRM_ID\":\"06037C\",\"SOURCE_CIT\":\"06037C_FIRM1\"},\"ref\":{\"dataset\":\"fema_flood_zones\",\"object_id\":24288619,\"global_id\":\"{9648A510-4EDD-4936-997A-9135DEFB22D7}\",\"layer_url\":\"https://hazards.fema.gov/arcgis/rest/services/public/NFHL/MapServer/28\"},\"distance_m\":6652,\"exact\":false},\"AO\":{\"attributes\":{\"OBJECTID\":24288064,\"GlobalID\":\"{CD70CFD4-E11A-4A96-AF10-5A07DE12F182}\",\"FLD_ZONE\":\"AO\",\"ZONE_SUBTY\":null,\"SFHA_TF\":\"T\",\"STATIC_BFE\":-9999.0,\"DEPTH\":1.0,\"LEN_UNIT\":\"Feet\",\"STUDY_TYP\":\"NP\",\"DFIRM_ID\":\"06037C\",\"SOURCE_CIT\":\"06037C_FIRM1\"},\"ref\":{\"dataset\":\"fema_flood_zones\",\"object_id\":24288064,\"global_id\":\"{CD70CFD4-E11A-4A96-AF10-5A07DE12F182}\",\"layer_url\":\"https://hazards.fema.gov/arcgis/rest/services/public/NFHL/MapServer/28\"},\"distance_m\":5185,\"exact\":false},\"D\":{\"attributes\":{\"OBJECTID\":24293344,\"GlobalID\":\"{4FE4A152-3E5F-4DEE-9875-B851C4CF4F6A}\",\"FLD_ZONE\":\"D\",\"ZONE_SUBTY\":null,\"SFHA_TF\":\"F\",\"STATIC_BFE\":-9999.0,\"DEPTH\":-9999.0,\"LEN_UNIT\":\"\",\"STUDY_TYP\":\"NP\",\"DFIRM_ID\":\"06037C\",\"SOURCE_CIT\":\"06037C_BASE8\"},\"ref\":{\"dataset\":\"fema_flood_zones\",\"object_id\":24293344,\"global_id\":\"{4FE4A152-3E5F-4DEE-9875-B851C4CF4F6A}\",\"layer_url\":\"https://hazards.fema.gov/arcgis/rest/services/public/NFHL/MapServer/28\"},\"distance_m\":2229,\"exact\":true},\"X\":{\"attributes\":{\"OBJECTID\":24293351,\"GlobalID\":\"{06B841F4-4F91-449C-9D54-2777D2C8CD50}\",\"FLD_ZONE\":\"X\",\"ZONE_SUBTY\":\"AREA OF MINIMAL FLOOD HAZARD\",\"SFHA_TF\":\"F\",\"STATIC_BFE\":-9999.0,\"DEPTH\":-9999.0,\"LEN_UNIT\":\"\",\"STUDY_TYP\":\"NP\",\"DFIRM_ID\":\"06037C\",\"SOURCE_CIT\":\"06037C_STUDY2\"},\"ref\":{\"dataset\":\"fema_flood_zones\",\"object_id\":24293351,\"global_id\":\"{06B841F4-4F91-449C-9D54-2777D2C8CD50}\",\"layer_url\":\"https://hazards.fema.gov/arcgis/rest/services/public/NFHL/MapServer/28\"},\"distance_m\":0,\"exact\":true}},\"class_field\":\"FLD_ZONE\",\"notes\":[],\"disclaimer\":\"Regulatory hazard zone map, not a site-specific assessment. Being outside a mapped zone does not mean there is no hazard.\",\"_meta\":{\"source\":\"FEMA\",\"url\":\"https://hazards.fema.gov/arcgis/rest/services/public/NFHL/MapServer/28\",\"cached\":true,\"as_of\":\"2026-09-26T02:32:18+00:00\",\"stale\":false}},\"fault\":{\"dataset\":\"cgs_fault_zones\",\"title\":\"Alquist-Priolo Earthquake Fault Zones\",\"status\":\"not_in_zone\",\"matches\":[],\"nearest\":{\"attributes\":{\"OBJECTID\":707,\"GlobalID\":\"7d09283c-45f6-422b-ae40-d3e0ec5bc9a7\",\"QUAD_NAME\":\"Los Angeles\",\"MAP_RELEASED\":\"2017-06-15\",\"MAP_REVISED\":\"Y\",\"ZN_RELEASED\":\"2017-06-15\",\"ZN_REVISED\":\"Y\",\"GEOPDFLINK\":\"https://gmw.conservation.ca.gov/SHP/EZRIM/Maps/LOS_ANGELES_EZRIM.pdf\",\"REPORTLINK\":\"https://gmw.conservation.ca.gov/SHP/EZRIM/Reports/FER/260/\"},\"ref\":{\"dataset\":\"cgs_fault_zones\",\"object_id\":707,\"global_id\":\"7d09283c-45f6-422b-ae40-d3e0ec5bc9a7\",\"layer_url\":\"https://services2.arcgis.com/zr3KAIbsRSUyARHG/arcgis/rest/services/CGS_Alquist_Priolo_Fault_Zones/FeatureServer/0\"},\"distance_m\":3806,\"exact\":false},\"notes\":[\"Being inside the zone is the hazard signal. The attributes describe the map (quadrangle, release date, report links), not the severity.\"],\"disclaimer\":\"Regulatory hazard zone map, not a site-specific assessment. Being outside a mapped zone does not mean there is no hazard.\",\"_meta\":{\"source\":\"California Geological Survey\",\"url\":\"https://services2.arcgis.com/zr3KAIbsRSUyARHG/arcgis/rest/services/CGS_Alquist_Priolo_Fault_Zones/FeatureServer/0\",\"cached\":true,\"as_of\":\"2026-09-26T02:32:14+00:00\",\"stale\":false,\"source_last_edit\":\"2025-11-19T17:39:00+00:00\"}},\"liquefaction\":{\"dataset\":\"cgs_liquefaction_zones\",\"title\":\"Seismic Hazard Zones: Liquefaction\",\"status\":\"not_in_zone\",\"matches\":[],\"nearest\":{\"attributes\":{\"OBJECTID\":623,\"GlobalID\":\"a32b2347-9c36-422e-b02c-f4e923a44b4d\",\"QUAD_NAME\":\"Pasadena\",\"RELEASED\":\"1999-03-25\",\"REVISED\":\"N\",\"PREV_DATES\":null,\"GEOPDFLINK\":\"https://www.conservation.ca.gov/cgs/Documents/Publications/EZRIM/PASADENA_EZRIM_a11y.pdf\",\"REPORTLINK\":\"https://gmw.conservation.ca.gov/SHP/EZRIM/Reports/SHZR/SHZR_014_Pasadena.pdf\"},\"ref\":{\"dataset\":\"cgs_liquefaction_zones\",\"object_id\":623,\"global_id\":\"a32b2347-9c36-422e-b02c-f4e923a44b4d\",\"layer_url\":\"https://services2.arcgis.com/zr3KAIbsRSUyARHG/arcgis/rest/services/CGS_Liquefaction_Zones/FeatureServer/0\"},\"distance_m\":1131,\"exact\":true},\"notes\":[\"Being inside the zone is the hazard signal. The attributes describe the map (quadrangle, release date, report links), not the severity.\"],\"disclaimer\":\"Regulatory hazard zone map, not a site-specific assessment. Being outside a mapped zone does not mean there is no hazard.\",\"_meta\":{\"source\":\"California Geological Survey\",\"url\":\"https://services2.arcgis.com/zr3KAIbsRSUyARHG/arcgis/rest/services/CGS_Liquefaction_Zones/FeatureServer/0\",\"cached\":true,\"as_of\":\"2026-09-26T02:32:14+00:00\",\"stale\":false,\"source_last_edit\":\"2025-11-19T17:47:57+00:00\"}},\"landslide\":{\"dataset\":\"cgs_landslide_zones\",\"title\":\"Seismic Hazard Zones: Earthquake-Induced Landslide\",\"status\":\"not_in_zone\",\"matches\":[],\"nearest\":{\"attributes\":{\"OBJECTID\":14413,\"GlobalID\":\"4284b5a6-a99e-4716-98a7-e9389fd2cc8d\",\"QUAD_NAME\":\"Pasadena\",\"RELEASED\":\"1999-03-25\",\"REVISED\":\"N\",\"PREV_DATES\":null,\"GEOPDFLINK\":\"https://www.conservation.ca.gov/cgs/Documents/Publications/EZRIM/PASADENA_EZRIM_a11y.pdf\",\"REPORTLINK\":\"https://gmw.conservation.ca.gov/SHP/EZRIM/Reports/SHZR/SHZR_014_Pasadena.pdf\"},\"ref\":{\"dataset\":\"cgs_landslide_zones\",\"object_id\":14413,\"global_id\":\"4284b5a6-a99e-4716-98a7-e9389fd2cc8d\",\"layer_url\":\"https://services2.arcgis.com/zr3KAIbsRSUyARHG/arcgis/rest/services/CGS_Landslide_Zones/FeatureServer/0\"},\"distance_m\":1547,\"exact\":true},\"notes\":[\"Being inside the zone is the hazard signal. The attributes describe the map (quadrangle, release date, report links), not the severity.\"],\"disclaimer\":\"Regulatory hazard zone map, not a site-specific assessment. Being outside a mapped zone does not mean there is no hazard.\",\"_meta\":{\"source\":\"California Geological Survey\",\"url\":\"https://services2.arcgis.com/zr3KAIbsRSUyARHG/arcgis/rest/services/CGS_Landslide_Zones/FeatureServer/0\",\"cached\":true,\"as_of\":\"2026-09-26T02:32:15+00:00\",\"stale\":false,\"source_last_edit\":\"2025-11-19T22:42:23+00:00\"}},\"dam_inundation\":{\"dataset\":\"dwr_dam_inundation\",\"title\":\"Dam Inundation Areas (DSOD-approved)\",\"status\":\"not_in_zone\",\"matches\":[],\"nearest\":{\"attributes\":{\"FID\":40,\"GlobalID\":\"fb4d27a7-fa9d-4b38-98b3-40eab2912575\",\"NID\":\"CA00064\",\"StateID\":\"5.006\",\"DamName\":\"Diederich Res\",\"FailedStr\":\"MainDam\",\"Scenario\":\"Scenario1\",\"LoadingScn\":\"Sunny Day\",\"PubDate\":1564128000000,\"HazardCl\":\"Extremely High\"},\"ref\":{\"dataset\":\"dwr_dam_inundation\",\"object_id\":40,\"global_id\":\"fb4d27a7-fa9d-4b38-98b3-40eab2912575\",\"layer_url\":\"https://services.arcgis.com/aa38u6OgfNoCkTJ6/arcgis/rest/services/Approved_InundationBoundaries_As_of_Oct01_2025/FeatureServer/100\"},\"distance_m\":733,\"exact\":true},\"notes\":[],\"disclaimer\":\"Inundation maps are for emergency planning and typically show flooding deeper than one foot; actual evacuation zones are set by local emergency managers.\",\"_meta\":{\"source\":\"California DWR, Division of Safety of Dams\",\"url\":\"https://services.arcgis.com/aa38u6OgfNoCkTJ6/arcgis/rest/services/Approved_InundationBoundaries_As_of_Oct01_2025/FeatureServer/100\",\"cached\":true,\"as_of\":\"2026-09-26T02:32:21+00:00\",\"stale\":false,\"source_last_edit\":\"2026-03-19T18:20:13+00:00\"}},\"debris_flow\":{\"dataset\":\"usgs_debris_flow\",\"title\":\"Post-Fire Debris-Flow Hazard Assessments (basins)\",\"status\":\"not_in_zone\",\"matches\":[],\"nearest_by_class\":{},\"class_field\":\"BCH_Legend\",\"notes\":[\"No current USGS post-fire assessment covers this location. USGS only assesses recently burned areas, so this does not mean there is no debris-flow risk.\"],\"disclaimer\":\"Assessments represent conditions immediately after the fire and do not predict downstream impacts, runout paths or inundation extent.\",\"_meta\":{\"source\":\"USGS\",\"url\":\"https://earthquake.usgs.gov/arcgis/rest/services/ls/pwfdf/MapServer/4\",\"cached\":true,\"as_of\":\"2026-09-26T02:32:50+00:00\",\"stale\":false}}}"
+          }
+        ],
+        "structuredContent": {
+          "location": {
+            "lat": 34.15336200000111,
+            "lon": -118.25464500000213,
+            "in_city": true,
+            "source": "coordinates",
+            "matched_address": null,
+            "score": null
+          },
+          "wildfire": {
+            "location": null,
+            "dataset": "calfire_fhsz_lra",
+            "title": "Fire Hazard Severity Zones (Local Responsibility Area, 2025)",
+            "status": "not_in_zone",
+            "reason": null,
+            "matches": [
+              {
+                "attributes": {
+                  "OBJECTID": 715,
+                  "SRA": "LRA",
+                  "FHSZ": -3,
+                  "FHSZ_Description": "NonWildland"
+                },
+                "ref": {
+                  "dataset": "calfire_fhsz_lra",
+                  "object_id": 715,
+                  "global_id": null,
+                  "layer_url": "https://services1.arcgis.com/jUJYIo9tSA7EHvfZ/arcgis/rest/services/FHSALRA25_v1_All/FeatureServer/0"
+                }
+              }
+            ],
+            "nearest": null,
+            "nearest_by_class": {
+              "High": {
+                "attributes": {
+                  "OBJECTID": 4691,
+                  "SRA": "LRA",
+                  "FHSZ": 2,
+                  "FHSZ_Description": "High"
+                },
+                "ref": {
+                  "dataset": "calfire_fhsz_lra",
+                  "object_id": 4691,
+                  "global_id": null,
+                  "layer_url": "https://services1.arcgis.com/jUJYIo9tSA7EHvfZ/arcgis/rest/services/FHSALRA25_v1_All/FeatureServer/0"
+                },
+                "distance_m": 1085,
+                "exact": true
+              },
+              "Moderate": {
+                "attributes": {
+                  "OBJECTID": 2729,
+                  "SRA": "LRA",
+                  "FHSZ": 1,
+                  "FHSZ_Description": "Moderate"
+                },
+                "ref": {
+                  "dataset": "calfire_fhsz_lra",
+                  "object_id": 2729,
+                  "global_id": null,
+                  "layer_url": "https://services1.arcgis.com/jUJYIo9tSA7EHvfZ/arcgis/rest/services/FHSALRA25_v1_All/FeatureServer/0"
+                },
+                "distance_m": 951,
+                "exact": true
+              },
+              "NonWildland": {
+                "attributes": {
+                  "OBJECTID": 715,
+                  "SRA": "LRA",
+                  "FHSZ": -3,
+                  "FHSZ_Description": "NonWildland"
+                },
+                "ref": {
+                  "dataset": "calfire_fhsz_lra",
+                  "object_id": 715,
+                  "global_id": null,
+                  "layer_url": "https://services1.arcgis.com/jUJYIo9tSA7EHvfZ/arcgis/rest/services/FHSALRA25_v1_All/FeatureServer/0"
+                },
+                "distance_m": 0,
+                "exact": true
+              },
+              "Very High": {
+                "attributes": {
+                  "OBJECTID": 5528,
+                  "SRA": "LRA",
+                  "FHSZ": 3,
+                  "FHSZ_Description": "Very High"
+                },
+                "ref": {
+                  "dataset": "calfire_fhsz_lra",
+                  "object_id": 5528,
+                  "global_id": null,
+                  "layer_url": "https://services1.arcgis.com/jUJYIo9tSA7EHvfZ/arcgis/rest/services/FHSALRA25_v1_All/FeatureServer/0"
+                },
+                "distance_m": 1202,
+                "exact": true
+              }
+            },
+            "class_field": "FHSZ_Description",
+            "notes": [
+              "CAL FIRE classes this location as NonWildland (unzoned): it is not in a mapped fire hazard severity zone. This does not mean there is no wildfire risk; embers and structure-to-structure spread can reach unzoned areas."
+            ],
+            "disclaimer": "Regulatory hazard zone map, not a site-specific assessment. Being outside a mapped zone does not mean there is no hazard.",
+            "_meta": {
+              "source": "CAL FIRE",
+              "url": "https://services1.arcgis.com/jUJYIo9tSA7EHvfZ/arcgis/rest/services/FHSALRA25_v1_All/FeatureServer/0",
+              "cached": true,
+              "as_of": "2026-09-26T02:32:11+00:00",
+              "stale": false,
+              "source_last_edit": "2026-02-02T17:34:07+00:00"
+            }
+          },
+          "flood": {
+            "location": null,
+            "dataset": "fema_flood_zones",
+            "title": "FEMA National Flood Hazard Layer: Flood Hazard Zones",
+            "status": "in_zone",
+            "reason": null,
+            "matches": [
+              {
+                "attributes": {
+                  "OBJECTID": 24293351,
+                  "GlobalID": "{06B841F4-4F91-449C-9D54-2777D2C8CD50}",
+                  "FLD_ZONE": "X",
+                  "ZONE_SUBTY": "AREA OF MINIMAL FLOOD HAZARD",
+                  "SFHA_TF": "F",
+                  "STATIC_BFE": -9999,
+                  "DEPTH": -9999,
+                  "LEN_UNIT": "",
+                  "STUDY_TYP": "NP",
+                  "DFIRM_ID": "06037C",
+                  "SOURCE_CIT": "06037C_STUDY2"
+                },
+                "ref": {
+                  "dataset": "fema_flood_zones",
+                  "object_id": 24293351,
+                  "global_id": "{06B841F4-4F91-449C-9D54-2777D2C8CD50}",
+                  "layer_url": "https://hazards.fema.gov/arcgis/rest/services/public/NFHL/MapServer/28"
+                }
+              }
+            ],
+            "nearest": null,
+            "nearest_by_class": {
+              "A": {
+                "attributes": {
+                  "OBJECTID": 24288328,
+                  "GlobalID": "{AB08DFBF-6BFF-498D-ACDC-7DBD9B641F64}",
+                  "FLD_ZONE": "A",
+                  "ZONE_SUBTY": "1 PCT ANNUAL CHANCE FLOOD HAZARD CONTAINED IN CHANNEL",
+                  "SFHA_TF": "T",
+                  "STATIC_BFE": -9999,
+                  "DEPTH": -9999,
+                  "LEN_UNIT": "",
+                  "STUDY_TYP": "NP",
+                  "DFIRM_ID": "06037C",
+                  "SOURCE_CIT": "06037C_FIRM1"
+                },
+                "ref": {
+                  "dataset": "fema_flood_zones",
+                  "object_id": 24288328,
+                  "global_id": "{AB08DFBF-6BFF-498D-ACDC-7DBD9B641F64}",
+                  "layer_url": "https://hazards.fema.gov/arcgis/rest/services/public/NFHL/MapServer/28"
+                },
+                "distance_m": 3231,
+                "exact": true
+              },
+              "AE": {
+                "attributes": {
+                  "OBJECTID": 24288619,
+                  "GlobalID": "{9648A510-4EDD-4936-997A-9135DEFB22D7}",
+                  "FLD_ZONE": "AE",
+                  "ZONE_SUBTY": null,
+                  "SFHA_TF": "T",
+                  "STATIC_BFE": -9999,
+                  "DEPTH": -9999,
+                  "LEN_UNIT": "",
+                  "STUDY_TYP": "NP",
+                  "DFIRM_ID": "06037C",
+                  "SOURCE_CIT": "06037C_FIRM1"
+                },
+                "ref": {
+                  "dataset": "fema_flood_zones",
+                  "object_id": 24288619,
+                  "global_id": "{9648A510-4EDD-4936-997A-9135DEFB22D7}",
+                  "layer_url": "https://hazards.fema.gov/arcgis/rest/services/public/NFHL/MapServer/28"
+                },
+                "distance_m": 6652,
+                "exact": false
+              },
+              "AO": {
+                "attributes": {
+                  "OBJECTID": 24288064,
+                  "GlobalID": "{CD70CFD4-E11A-4A96-AF10-5A07DE12F182}",
+                  "FLD_ZONE": "AO",
+                  "ZONE_SUBTY": null,
+                  "SFHA_TF": "T",
+                  "STATIC_BFE": -9999,
+                  "DEPTH": 1,
+                  "LEN_UNIT": "Feet",
+                  "STUDY_TYP": "NP",
+                  "DFIRM_ID": "06037C",
+                  "SOURCE_CIT": "06037C_FIRM1"
+                },
+                "ref": {
+                  "dataset": "fema_flood_zones",
+                  "object_id": 24288064,
+                  "global_id": "{CD70CFD4-E11A-4A96-AF10-5A07DE12F182}",
+                  "layer_url": "https://hazards.fema.gov/arcgis/rest/services/public/NFHL/MapServer/28"
+                },
+                "distance_m": 5185,
+                "exact": false
+              },
+              "D": {
+                "attributes": {
+                  "OBJECTID": 24293344,
+                  "GlobalID": "{4FE4A152-3E5F-4DEE-9875-B851C4CF4F6A}",
+                  "FLD_ZONE": "D",
+                  "ZONE_SUBTY": null,
+                  "SFHA_TF": "F",
+                  "STATIC_BFE": -9999,
+                  "DEPTH": -9999,
+                  "LEN_UNIT": "",
+                  "STUDY_TYP": "NP",
+                  "DFIRM_ID": "06037C",
+                  "SOURCE_CIT": "06037C_BASE8"
+                },
+                "ref": {
+                  "dataset": "fema_flood_zones",
+                  "object_id": 24293344,
+                  "global_id": "{4FE4A152-3E5F-4DEE-9875-B851C4CF4F6A}",
+                  "layer_url": "https://hazards.fema.gov/arcgis/rest/services/public/NFHL/MapServer/28"
+                },
+                "distance_m": 2229,
+                "exact": true
+              },
+              "X": {
+                "attributes": {
+                  "OBJECTID": 24293351,
+                  "GlobalID": "{06B841F4-4F91-449C-9D54-2777D2C8CD50}",
+                  "FLD_ZONE": "X",
+                  "ZONE_SUBTY": "AREA OF MINIMAL FLOOD HAZARD",
+                  "SFHA_TF": "F",
+                  "STATIC_BFE": -9999,
+                  "DEPTH": -9999,
+                  "LEN_UNIT": "",
+                  "STUDY_TYP": "NP",
+                  "DFIRM_ID": "06037C",
+                  "SOURCE_CIT": "06037C_STUDY2"
+                },
+                "ref": {
+                  "dataset": "fema_flood_zones",
+                  "object_id": 24293351,
+                  "global_id": "{06B841F4-4F91-449C-9D54-2777D2C8CD50}",
+                  "layer_url": "https://hazards.fema.gov/arcgis/rest/services/public/NFHL/MapServer/28"
+                },
+                "distance_m": 0,
+                "exact": true
+              }
+            },
+            "class_field": "FLD_ZONE",
+            "notes": [],
+            "disclaimer": "Regulatory hazard zone map, not a site-specific assessment. Being outside a mapped zone does not mean there is no hazard.",
+            "_meta": {
+              "source": "FEMA",
+              "url": "https://hazards.fema.gov/arcgis/rest/services/public/NFHL/MapServer/28",
+              "cached": true,
+              "as_of": "2026-09-26T02:32:18+00:00",
+              "stale": false,
+              "source_last_edit": null
+            }
+          },
+          "fault": {
+            "location": null,
+            "dataset": "cgs_fault_zones",
+            "title": "Alquist-Priolo Earthquake Fault Zones",
+            "status": "not_in_zone",
+            "reason": null,
+            "matches": [],
+            "nearest": {
+              "attributes": {
+                "OBJECTID": 707,
+                "GlobalID": "7d09283c-45f6-422b-ae40-d3e0ec5bc9a7",
+                "QUAD_NAME": "Los Angeles",
+                "MAP_RELEASED": "2017-06-15",
+                "MAP_REVISED": "Y",
+                "ZN_RELEASED": "2017-06-15",
+                "ZN_REVISED": "Y",
+                "GEOPDFLINK": "https://gmw.conservation.ca.gov/SHP/EZRIM/Maps/LOS_ANGELES_EZRIM.pdf",
+                "REPORTLINK": "https://gmw.conservation.ca.gov/SHP/EZRIM/Reports/FER/260/"
+              },
+              "ref": {
+                "dataset": "cgs_fault_zones",
+                "object_id": 707,
+                "global_id": "7d09283c-45f6-422b-ae40-d3e0ec5bc9a7",
+                "layer_url": "https://services2.arcgis.com/zr3KAIbsRSUyARHG/arcgis/rest/services/CGS_Alquist_Priolo_Fault_Zones/FeatureServer/0"
+              },
+              "distance_m": 3806,
+              "exact": false
+            },
+            "nearest_by_class": null,
+            "class_field": null,
+            "notes": [
+              "Being inside the zone is the hazard signal. The attributes describe the map (quadrangle, release date, report links), not the severity."
+            ],
+            "disclaimer": "Regulatory hazard zone map, not a site-specific assessment. Being outside a mapped zone does not mean there is no hazard.",
+            "_meta": {
+              "source": "California Geological Survey",
+              "url": "https://services2.arcgis.com/zr3KAIbsRSUyARHG/arcgis/rest/services/CGS_Alquist_Priolo_Fault_Zones/FeatureServer/0",
+              "cached": true,
+              "as_of": "2026-09-26T02:32:14+00:00",
+              "stale": false,
+              "source_last_edit": "2025-11-19T17:39:00+00:00"
+            }
+          },
+          "liquefaction": {
+            "location": null,
+            "dataset": "cgs_liquefaction_zones",
+            "title": "Seismic Hazard Zones: Liquefaction",
+            "status": "not_in_zone",
+            "reason": null,
+            "matches": [],
+            "nearest": {
+              "attributes": {
+                "OBJECTID": 623,
+                "GlobalID": "a32b2347-9c36-422e-b02c-f4e923a44b4d",
+                "QUAD_NAME": "Pasadena",
+                "RELEASED": "1999-03-25",
+                "REVISED": "N",
+                "PREV_DATES": null,
+                "GEOPDFLINK": "https://www.conservation.ca.gov/cgs/Documents/Publications/EZRIM/PASADENA_EZRIM_a11y.pdf",
+                "REPORTLINK": "https://gmw.conservation.ca.gov/SHP/EZRIM/Reports/SHZR/SHZR_014_Pasadena.pdf"
+              },
+              "ref": {
+                "dataset": "cgs_liquefaction_zones",
+                "object_id": 623,
+                "global_id": "a32b2347-9c36-422e-b02c-f4e923a44b4d",
+                "layer_url": "https://services2.arcgis.com/zr3KAIbsRSUyARHG/arcgis/rest/services/CGS_Liquefaction_Zones/FeatureServer/0"
+              },
+              "distance_m": 1131,
+              "exact": true
+            },
+            "nearest_by_class": null,
+            "class_field": null,
+            "notes": [
+              "Being inside the zone is the hazard signal. The attributes describe the map (quadrangle, release date, report links), not the severity."
+            ],
+            "disclaimer": "Regulatory hazard zone map, not a site-specific assessment. Being outside a mapped zone does not mean there is no hazard.",
+            "_meta": {
+              "source": "California Geological Survey",
+              "url": "https://services2.arcgis.com/zr3KAIbsRSUyARHG/arcgis/rest/services/CGS_Liquefaction_Zones/FeatureServer/0",
+              "cached": true,
+              "as_of": "2026-09-26T02:32:14+00:00",
+              "stale": false,
+              "source_last_edit": "2025-11-19T17:47:57+00:00"
+            }
+          },
+          "landslide": {
+            "location": null,
+            "dataset": "cgs_landslide_zones",
+            "title": "Seismic Hazard Zones: Earthquake-Induced Landslide",
+            "status": "not_in_zone",
+            "reason": null,
+            "matches": [],
+            "nearest": {
+              "attributes": {
+                "OBJECTID": 14413,
+                "GlobalID": "4284b5a6-a99e-4716-98a7-e9389fd2cc8d",
+                "QUAD_NAME": "Pasadena",
+                "RELEASED": "1999-03-25",
+                "REVISED": "N",
+                "PREV_DATES": null,
+                "GEOPDFLINK": "https://www.conservation.ca.gov/cgs/Documents/Publications/EZRIM/PASADENA_EZRIM_a11y.pdf",
+                "REPORTLINK": "https://gmw.conservation.ca.gov/SHP/EZRIM/Reports/SHZR/SHZR_014_Pasadena.pdf"
+              },
+              "ref": {
+                "dataset": "cgs_landslide_zones",
+                "object_id": 14413,
+                "global_id": "4284b5a6-a99e-4716-98a7-e9389fd2cc8d",
+                "layer_url": "https://services2.arcgis.com/zr3KAIbsRSUyARHG/arcgis/rest/services/CGS_Landslide_Zones/FeatureServer/0"
+              },
+              "distance_m": 1547,
+              "exact": true
+            },
+            "nearest_by_class": null,
+            "class_field": null,
+            "notes": [
+              "Being inside the zone is the hazard signal. The attributes describe the map (quadrangle, release date, report links), not the severity."
+            ],
+            "disclaimer": "Regulatory hazard zone map, not a site-specific assessment. Being outside a mapped zone does not mean there is no hazard.",
+            "_meta": {
+              "source": "California Geological Survey",
+              "url": "https://services2.arcgis.com/zr3KAIbsRSUyARHG/arcgis/rest/services/CGS_Landslide_Zones/FeatureServer/0",
+              "cached": true,
+              "as_of": "2026-09-26T02:32:15+00:00",
+              "stale": false,
+              "source_last_edit": "2025-11-19T22:42:23+00:00"
+            }
+          },
+          "dam_inundation": {
+            "location": null,
+            "dataset": "dwr_dam_inundation",
+            "title": "Dam Inundation Areas (DSOD-approved)",
+            "status": "not_in_zone",
+            "reason": null,
+            "matches": [],
+            "nearest": {
+              "attributes": {
+                "FID": 40,
+                "GlobalID": "fb4d27a7-fa9d-4b38-98b3-40eab2912575",
+                "NID": "CA00064",
+                "StateID": "5.006",
+                "DamName": "Diederich Res",
+                "FailedStr": "MainDam",
+                "Scenario": "Scenario1",
+                "LoadingScn": "Sunny Day",
+                "PubDate": 1564128000000,
+                "HazardCl": "Extremely High"
+              },
+              "ref": {
+                "dataset": "dwr_dam_inundation",
+                "object_id": 40,
+                "global_id": "fb4d27a7-fa9d-4b38-98b3-40eab2912575",
+                "layer_url": "https://services.arcgis.com/aa38u6OgfNoCkTJ6/arcgis/rest/services/Approved_InundationBoundaries_As_of_Oct01_2025/FeatureServer/100"
+              },
+              "distance_m": 733,
+              "exact": true
+            },
+            "nearest_by_class": null,
+            "class_field": null,
+            "notes": [],
+            "disclaimer": "Inundation maps are for emergency planning and typically show flooding deeper than one foot; actual evacuation zones are set by local emergency managers.",
+            "_meta": {
+              "source": "California DWR, Division of Safety of Dams",
+              "url": "https://services.arcgis.com/aa38u6OgfNoCkTJ6/arcgis/rest/services/Approved_InundationBoundaries_As_of_Oct01_2025/FeatureServer/100",
+              "cached": true,
+              "as_of": "2026-09-26T02:32:21+00:00",
+              "stale": false,
+              "source_last_edit": "2026-03-19T18:20:13+00:00"
+            }
+          },
+          "debris_flow": {
+            "location": null,
+            "dataset": "usgs_debris_flow",
+            "title": "Post-Fire Debris-Flow Hazard Assessments (basins)",
+            "status": "not_in_zone",
+            "reason": null,
+            "matches": [],
+            "nearest": null,
+            "nearest_by_class": {},
+            "class_field": "BCH_Legend",
+            "notes": [
+              "No current USGS post-fire assessment covers this location. USGS only assesses recently burned areas, so this does not mean there is no debris-flow risk."
+            ],
+            "disclaimer": "Assessments represent conditions immediately after the fire and do not predict downstream impacts, runout paths or inundation extent.",
+            "_meta": {
+              "source": "USGS",
+              "url": "https://earthquake.usgs.gov/arcgis/rest/services/ls/pwfdf/MapServer/4",
+              "cached": true,
+              "as_of": "2026-09-26T02:32:50+00:00",
+              "stale": false,
+              "source_last_edit": null
+            }
+          }
+        },
+        "isError": false
+      }
+    },
+    {
+      "tool": "nearest_resources",
+      "args": {
+        "location": {
+          "lat": 34.15336200000111,
+          "lon": -118.25464500000213
+        },
+        "kinds": [
+          "schools",
+          "parks",
+          "bus_stops",
+          "police_stations",
+          "fire_stations",
+          "libraries"
+        ],
+        "limit": 2
+      },
+      "ms": 102,
+      "result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "{\"location\":{\"lat\":34.15336200000111,\"lon\":-118.25464500000213,\"in_city\":true,\"source\":\"coordinates\"},\"groups\":[{\"kind\":\"schools\",\"title\":\"Schools\",\"status\":\"ok\",\"results\":[{\"attributes\":{\"OBJECTID\":31,\"SCHOOL\":\"Allan F. Daily High School\",\"ADDRESS\":\"220 N. Kenwood Street\",\"School_typ\":\"High School\"},\"ref\":{\"dataset\":\"schools\",\"object_id\":31,\"layer_url\":\"https://gismap.glendaleca.gov/arcgis/rest/services/Common/GlendaleSchools/FeatureServer/0\"},\"kind\":\"schools\",\"name\":\"Allan F. Daily High School\",\"address\":\"220 N. Kenwood Street\",\"distance_m\":571},{\"attributes\":{\"OBJECTID\":24,\"SCHOOL\":\"Columbus Elementary\",\"ADDRESS\":\"425 West Milford\",\"School_typ\":\"Elementary\"},\"ref\":{\"dataset\":\"schools\",\"object_id\":24,\"layer_url\":\"https://gismap.glendaleca.gov/arcgis/rest/services/Common/GlendaleSchools/FeatureServer/0\"},\"kind\":\"schools\",\"name\":\"Columbus Elementary\",\"address\":\"425 West Milford\",\"distance_m\":690}],\"total_in_dataset\":27,\"_meta\":{\"source\":\"City of Glendale\",\"url\":\"https://gismap.glendaleca.gov/arcgis/rest/services/Common/GlendaleSchools/FeatureServer/0\",\"cached\":true,\"as_of\":\"2026-09-26T02:32:55+00:00\",\"stale\":false}},{\"kind\":\"parks\",\"title\":\"Parks\",\"status\":\"ok\",\"results\":[{\"attributes\":{\"OBJECTID\":39,\"NAME_ALF\":\"CHESS PARK\",\"NAMEA_ALF\":\"227 N BRAND BLVD\"},\"ref\":{\"dataset\":\"parks\",\"object_id\":39,\"layer_url\":\"https://gismap.glendaleca.gov/arcgis/rest/services/Common/Parks/FeatureServer/0\"},\"kind\":\"parks\",\"name\":\"CHESS PARK\",\"address\":\"227 N BRAND BLVD\",\"distance_m\":473},{\"attributes\":{\"OBJECTID\":35,\"NAME_ALF\":\"CITY HALL\",\"NAMEA_ALF\":\"613 E BROADWAY\"},\"ref\":{\"dataset\":\"parks\",\"object_id\":35,\"layer_url\":\"https://gismap.glendaleca.gov/arcgis/rest/services/Common/Parks/FeatureServer/0\"},\"kind\":\"parks\",\"name\":\"CITY HALL\",\"address\":\"613 E BROADWAY\",\"distance_m\":796}],\"total_in_dataset\":43,\"_meta\":{\"source\":\"City of Glendale\",\"url\":\"https://gismap.glendaleca.gov/arcgis/rest/services/Common/Parks/FeatureServer/0\",\"cached\":true,\"as_of\":\"2026-09-26T02:32:57+00:00\",\"stale\":false}},{\"kind\":\"bus_stops\",\"title\":\"Beeline Bus Stops\",\"status\":\"ok\",\"results\":[{\"attributes\":{\"OBJECTID\":330,\"Stop_Numbe\":159.0,\"Route\":\"2,11\",\"On_Street\":\"NB Brand\",\"At_Street\":\"FS Milford\"},\"ref\":{\"dataset\":\"bus_stops\",\"object_id\":330,\"layer_url\":\"https://gismap.glendaleca.gov/arcgis/rest/services/Common/GlendaleBeeline_BusStops/FeatureServer/0\"},\"kind\":\"bus_stops\",\"name\":\"NB Brand\",\"address\":\"NB Brand FS Milford\",\"distance_m\":20},{\"attributes\":{\"OBJECTID\":27,\"Stop_Numbe\":110.0,\"Route\":\"1\",\"On_Street\":\"SB Brand\",\"At_Street\":\"FS Milford\"},\"ref\":{\"dataset\":\"bus_stops\",\"object_id\":27,\"layer_url\":\"https://gismap.glendaleca.gov/arcgis/rest/services/Common/GlendaleBeeline_BusStops/FeatureServer/0\"},\"kind\":\"bus_stops\",\"name\":\"SB Brand\",\"address\":\"SB Brand FS Milford\",\"distance_m\":94}],\"total_in_dataset\":286,\"_meta\":{\"source\":\"City of Glendale\",\"url\":\"https://gismap.glendaleca.gov/arcgis/rest/services/Common/GlendaleBeeline_BusStops/FeatureServer/0\",\"cached\":true,\"as_of\":\"2026-09-26T02:32:59+00:00\",\"stale\":false}},{\"kind\":\"police_stations\",\"title\":\"Police Station\",\"status\":\"ok\",\"results\":[{\"attributes\":{\"OBJECTID\":1,\"Name\":\"Glendale Police Department\"},\"ref\":{\"dataset\":\"police_stations\",\"object_id\":1,\"layer_url\":\"https://gismap.glendaleca.gov/arcgis/rest/services/Common/GlendalePoliceStation/FeatureServer/0\"},\"kind\":\"police_stations\",\"name\":\"Glendale Police Department\",\"distance_m\":778}],\"total_in_dataset\":1,\"_meta\":{\"source\":\"City of Glendale\",\"url\":\"https://gismap.glendaleca.gov/arcgis/rest/services/Common/GlendalePoliceStation/FeatureServer/0\",\"cached\":true,\"as_of\":\"2026-09-26T02:32:54+00:00\",\"stale\":false}},{\"kind\":\"fire_stations\",\"title\":\"Fire Stations\",\"status\":\"ok\",\"results\":[{\"attributes\":{\"OBJECTID\":6,\"NAME\":\"Fire Station 26\",\"ADDRESS\":\"1145 N. Brand Blvd.\",\"CITY\":\"Glendale\",\"sta_no\":\" 26\"},\"ref\":{\"dataset\":\"fire_stations\",\"object_id\":6,\"layer_url\":\"https://gismap.glendaleca.gov/arcgis/rest/services/Common/FireStations/FeatureServer/0\"},\"kind\":\"fire_stations\",\"name\":\"Fire Station 26\",\"address\":\"1145 N. Brand Blvd.\",\"distance_m\":1015},{\"attributes\":{\"OBJECTID\":1,\"NAME\":\"Fire Station 21\",\"ADDRESS\":\"421 Oak Street\",\"CITY\":\"Glendale\",\"sta_no\":\" 21\"},\"ref\":{\"dataset\":\"fire_stations\",\"object_id\":1,\"layer_url\":\"https://gismap.glendaleca.gov/arcgis/rest/services/Common/FireStations/FeatureServer/0\"},\"kind\":\"fire_stations\",\"name\":\"Fire Station 21\",\"address\":\"421 Oak Street\",\"distance_m\":1240}],\"total_in_dataset\":9,\"_meta\":{\"source\":\"City of Glendale\",\"url\":\"https://gismap.glendaleca.gov/arcgis/rest/services/Common/FireStations/FeatureServer/0\",\"cached\":true,\"as_of\":\"2026-09-26T02:32:51+00:00\",\"stale\":false}},{\"kind\":\"libraries\",\"title\":\"Libraries\",\"status\":\"ok\",\"results\":[{\"attributes\":{\"OBJECTID\":1,\"NAME\":\"Central Library\",\"ST_NUM\":222,\"ST_DIR\":\"E\",\"ST_NAME\":\"Harvard\",\"ST_TYPE\":\"St\"},\"ref\":{\"dataset\":\"libraries\",\"object_id\":1,\"layer_url\":\"https://gismap.glendaleca.gov/arcgis/rest/services/Common/Libraries/FeatureServer/0\"},\"kind\":\"libraries\",\"name\":\"Central Library\",\"address\":\"222 E Harvard St\",\"distance_m\":1068},{\"attributes\":{\"OBJECTID\":2,\"NAME\":\"Casa Verdugo Library\",\"ST_NUM\":1151,\"ST_DIR\":\"N\",\"ST_NAME\":\"Brand\",\"ST_TYPE\":\"Blvd\"},\"ref\":{\"dataset\":\"libraries\",\"object_id\":2,\"layer_url\":\"https://gismap.glendaleca.gov/arcgis/rest/services/Common/Libraries/FeatureServer/0\"},\"kind\":\"libraries\",\"name\":\"Casa Verdugo Library\",\"address\":\"1151 N Brand Blvd\",\"distance_m\":1104}],\"total_in_dataset\":8,\"_meta\":{\"source\":\"City of Glendale\",\"url\":\"https://gismap.glendaleca.gov/arcgis/rest/services/Common/Libraries/FeatureServer/0\",\"cached\":true,\"as_of\":\"2026-09-26T02:32:56+00:00\",\"stale\":false}}],\"notes\":[\"Distances are straight-line meters, not travel distance. Only resources inside Glendale are included.\"]}"
+          }
+        ],
+        "structuredContent": {
+          "location": {
+            "lat": 34.15336200000111,
+            "lon": -118.25464500000213,
+            "in_city": true,
+            "source": "coordinates",
+            "matched_address": null,
+            "score": null
+          },
+          "groups": [
+            {
+              "kind": "schools",
+              "title": "Schools",
+              "status": "ok",
+              "reason": null,
+              "results": [
+                {
+                  "attributes": {
+                    "OBJECTID": 31,
+                    "SCHOOL": "Allan F. Daily High School",
+                    "ADDRESS": "220 N. Kenwood Street",
+                    "School_typ": "High School"
+                  },
+                  "ref": {
+                    "dataset": "schools",
+                    "object_id": 31,
+                    "global_id": null,
+                    "layer_url": "https://gismap.glendaleca.gov/arcgis/rest/services/Common/GlendaleSchools/FeatureServer/0"
+                  },
+                  "kind": "schools",
+                  "name": "Allan F. Daily High School",
+                  "address": "220 N. Kenwood Street",
+                  "distance_m": 571
+                },
+                {
+                  "attributes": {
+                    "OBJECTID": 24,
+                    "SCHOOL": "Columbus Elementary",
+                    "ADDRESS": "425 West Milford",
+                    "School_typ": "Elementary"
+                  },
+                  "ref": {
+                    "dataset": "schools",
+                    "object_id": 24,
+                    "global_id": null,
+                    "layer_url": "https://gismap.glendaleca.gov/arcgis/rest/services/Common/GlendaleSchools/FeatureServer/0"
+                  },
+                  "kind": "schools",
+                  "name": "Columbus Elementary",
+                  "address": "425 West Milford",
+                  "distance_m": 690
+                }
+              ],
+              "total_in_dataset": 27,
+              "_meta": {
+                "source": "City of Glendale",
+                "url": "https://gismap.glendaleca.gov/arcgis/rest/services/Common/GlendaleSchools/FeatureServer/0",
+                "cached": true,
+                "as_of": "2026-09-26T02:32:55+00:00",
+                "stale": false,
+                "source_last_edit": null
+              }
+            },
+            {
+              "kind": "parks",
+              "title": "Parks",
+              "status": "ok",
+              "reason": null,
+              "results": [
+                {
+                  "attributes": {
+                    "OBJECTID": 39,
+                    "NAME_ALF": "CHESS PARK",
+                    "NAMEA_ALF": "227 N BRAND BLVD"
+                  },
+                  "ref": {
+                    "dataset": "parks",
+                    "object_id": 39,
+                    "global_id": null,
+                    "layer_url": "https://gismap.glendaleca.gov/arcgis/rest/services/Common/Parks/FeatureServer/0"
+                  },
+                  "kind": "parks",
+                  "name": "CHESS PARK",
+                  "address": "227 N BRAND BLVD",
+                  "distance_m": 473
+                },
+                {
+                  "attributes": {
+                    "OBJECTID": 35,
+                    "NAME_ALF": "CITY HALL",
+                    "NAMEA_ALF": "613 E BROADWAY"
+                  },
+                  "ref": {
+                    "dataset": "parks",
+                    "object_id": 35,
+                    "global_id": null,
+                    "layer_url": "https://gismap.glendaleca.gov/arcgis/rest/services/Common/Parks/FeatureServer/0"
+                  },
+                  "kind": "parks",
+                  "name": "CITY HALL",
+                  "address": "613 E BROADWAY",
+                  "distance_m": 796
+                }
+              ],
+              "total_in_dataset": 43,
+              "_meta": {
+                "source": "City of Glendale",
+                "url": "https://gismap.glendaleca.gov/arcgis/rest/services/Common/Parks/FeatureServer/0",
+                "cached": true,
+                "as_of": "2026-09-26T02:32:57+00:00",
+                "stale": false,
+                "source_last_edit": null
+              }
+            },
+            {
+              "kind": "bus_stops",
+              "title": "Beeline Bus Stops",
+              "status": "ok",
+              "reason": null,
+              "results": [
+                {
+                  "attributes": {
+                    "OBJECTID": 330,
+                    "Stop_Numbe": 159,
+                    "Route": "2,11",
+                    "On_Street": "NB Brand",
+                    "At_Street": "FS Milford"
+                  },
+                  "ref": {
+                    "dataset": "bus_stops",
+                    "object_id": 330,
+                    "global_id": null,
+                    "layer_url": "https://gismap.glendaleca.gov/arcgis/rest/services/Common/GlendaleBeeline_BusStops/FeatureServer/0"
+                  },
+                  "kind": "bus_stops",
+                  "name": "NB Brand",
+                  "address": "NB Brand FS Milford",
+                  "distance_m": 20
+                },
+                {
+                  "attributes": {
+                    "OBJECTID": 27,
+                    "Stop_Numbe": 110,
+                    "Route": "1",
+                    "On_Street": "SB Brand",
+                    "At_Street": "FS Milford"
+                  },
+                  "ref": {
+                    "dataset": "bus_stops",
+                    "object_id": 27,
+                    "global_id": null,
+                    "layer_url": "https://gismap.glendaleca.gov/arcgis/rest/services/Common/GlendaleBeeline_BusStops/FeatureServer/0"
+                  },
+                  "kind": "bus_stops",
+                  "name": "SB Brand",
+                  "address": "SB Brand FS Milford",
+                  "distance_m": 94
+                }
+              ],
+              "total_in_dataset": 286,
+              "_meta": {
+                "source": "City of Glendale",
+                "url": "https://gismap.glendaleca.gov/arcgis/rest/services/Common/GlendaleBeeline_BusStops/FeatureServer/0",
+                "cached": true,
+                "as_of": "2026-09-26T02:32:59+00:00",
+                "stale": false,
+                "source_last_edit": null
+              }
+            },
+            {
+              "kind": "police_stations",
+              "title": "Police Station",
+              "status": "ok",
+              "reason": null,
+              "results": [
+                {
+                  "attributes": {
+                    "OBJECTID": 1,
+                    "Name": "Glendale Police Department"
+                  },
+                  "ref": {
+                    "dataset": "police_stations",
+                    "object_id": 1,
+                    "global_id": null,
+                    "layer_url": "https://gismap.glendaleca.gov/arcgis/rest/services/Common/GlendalePoliceStation/FeatureServer/0"
+                  },
+                  "kind": "police_stations",
+                  "name": "Glendale Police Department",
+                  "address": null,
+                  "distance_m": 778
+                }
+              ],
+              "total_in_dataset": 1,
+              "_meta": {
+                "source": "City of Glendale",
+                "url": "https://gismap.glendaleca.gov/arcgis/rest/services/Common/GlendalePoliceStation/FeatureServer/0",
+                "cached": true,
+                "as_of": "2026-09-26T02:32:54+00:00",
+                "stale": false,
+                "source_last_edit": null
+              }
+            },
+            {
+              "kind": "fire_stations",
+              "title": "Fire Stations",
+              "status": "ok",
+              "reason": null,
+              "results": [
+                {
+                  "attributes": {
+                    "OBJECTID": 6,
+                    "NAME": "Fire Station 26",
+                    "ADDRESS": "1145 N. Brand Blvd.",
+                    "CITY": "Glendale",
+                    "sta_no": " 26"
+                  },
+                  "ref": {
+                    "dataset": "fire_stations",
+                    "object_id": 6,
+                    "global_id": null,
+                    "layer_url": "https://gismap.glendaleca.gov/arcgis/rest/services/Common/FireStations/FeatureServer/0"
+                  },
+                  "kind": "fire_stations",
+                  "name": "Fire Station 26",
+                  "address": "1145 N. Brand Blvd.",
+                  "distance_m": 1015
+                },
+                {
+                  "attributes": {
+                    "OBJECTID": 1,
+                    "NAME": "Fire Station 21",
+                    "ADDRESS": "421 Oak Street",
+                    "CITY": "Glendale",
+                    "sta_no": " 21"
+                  },
+                  "ref": {
+                    "dataset": "fire_stations",
+                    "object_id": 1,
+                    "global_id": null,
+                    "layer_url": "https://gismap.glendaleca.gov/arcgis/rest/services/Common/FireStations/FeatureServer/0"
+                  },
+                  "kind": "fire_stations",
+                  "name": "Fire Station 21",
+                  "address": "421 Oak Street",
+                  "distance_m": 1240
+                }
+              ],
+              "total_in_dataset": 9,
+              "_meta": {
+                "source": "City of Glendale",
+                "url": "https://gismap.glendaleca.gov/arcgis/rest/services/Common/FireStations/FeatureServer/0",
+                "cached": true,
+                "as_of": "2026-09-26T02:32:51+00:00",
+                "stale": false,
+                "source_last_edit": null
+              }
+            },
+            {
+              "kind": "libraries",
+              "title": "Libraries",
+              "status": "ok",
+              "reason": null,
+              "results": [
+                {
+                  "attributes": {
+                    "OBJECTID": 1,
+                    "NAME": "Central Library",
+                    "ST_NUM": 222,
+                    "ST_DIR": "E",
+                    "ST_NAME": "Harvard",
+                    "ST_TYPE": "St"
+                  },
+                  "ref": {
+                    "dataset": "libraries",
+                    "object_id": 1,
+                    "global_id": null,
+                    "layer_url": "https://gismap.glendaleca.gov/arcgis/rest/services/Common/Libraries/FeatureServer/0"
+                  },
+                  "kind": "libraries",
+                  "name": "Central Library",
+                  "address": "222 E Harvard St",
+                  "distance_m": 1068
+                },
+                {
+                  "attributes": {
+                    "OBJECTID": 2,
+                    "NAME": "Casa Verdugo Library",
+                    "ST_NUM": 1151,
+                    "ST_DIR": "N",
+                    "ST_NAME": "Brand",
+                    "ST_TYPE": "Blvd"
+                  },
+                  "ref": {
+                    "dataset": "libraries",
+                    "object_id": 2,
+                    "global_id": null,
+                    "layer_url": "https://gismap.glendaleca.gov/arcgis/rest/services/Common/Libraries/FeatureServer/0"
+                  },
+                  "kind": "libraries",
+                  "name": "Casa Verdugo Library",
+                  "address": "1151 N Brand Blvd",
+                  "distance_m": 1104
+                }
+              ],
+              "total_in_dataset": 8,
+              "_meta": {
+                "source": "City of Glendale",
+                "url": "https://gismap.glendaleca.gov/arcgis/rest/services/Common/Libraries/FeatureServer/0",
+                "cached": true,
+                "as_of": "2026-09-26T02:32:56+00:00",
+                "stale": false,
+                "source_last_edit": null
+              }
+            }
+          ],
+          "notes": [
+            "Distances are straight-line meters, not travel distance. Only resources inside Glendale are included."
+          ]
+        },
+        "isError": false
+      }
+    }
+  ]
+}

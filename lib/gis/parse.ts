@@ -25,12 +25,29 @@ export function pick(o: Obj | undefined, ...keys: string[]): unknown {
   return undefined;
 }
 
+/** A tool returned isError. `body` is the parsed JSON error, e.g. {"error": "...", "candidates": [...]}. */
+export class ToolError extends Error {
+  readonly body: unknown;
+  constructor(message: string, body: unknown) {
+    super(message);
+    this.name = "ToolError";
+    this.body = body;
+  }
+}
+
 /** MCP CallToolResult → JSON payload. Prefers structuredContent, else JSON in the first text block. */
 export function toolPayload(result: unknown): unknown {
   if (!isObj(result)) return result;
   const content = Array.isArray(result.content) ? (result.content as Obj[]) : [];
   const text = content.find((c) => isObj(c) && c.type === "text" && typeof c.text === "string")?.text as string | undefined;
-  if (result.isError) throw new Error(`GIS tool error: ${(text ?? "unknown error").slice(0, 300)}`);
+  if (result.isError) {
+    let body: unknown = result.structuredContent ?? text;
+    if (typeof body === "string") {
+      try { body = JSON.parse(body); } catch { /* keep text */ }
+    }
+    const msg = isObj(body) && typeof body.error === "string" ? body.error : (text ?? "unknown error");
+    throw new ToolError(`GIS tool error: ${msg.slice(0, 300)}`, body);
+  }
   if (result.structuredContent !== undefined && result.structuredContent !== null) {
     const sc = result.structuredContent;
     // Some servers wrap the payload as { result: ... }
@@ -67,8 +84,11 @@ export function recordsOf(payload: unknown): Obj[] {
 /** GeoJSON / Esri feature → flat attributes (keeps geometry under `__geometry`). */
 function flattenFeature(f: Obj): Obj {
   const attrs = pick(f, "attributes", "properties");
-  if (isObj(attrs)) return { ...attrs, __geometry: pick(f, "geometry", "location") };
-  return f;
+  if (!isObj(attrs)) return f;
+  const top: Obj = {};
+  for (const [k, v] of Object.entries(f)) if (!/^(attributes|properties|geometry|ref)$/i.test(k)) top[k] = v;
+  // top-level fields (e.g. name / address / distance_m added by the server) win over raw attributes
+  return { ...attrs, ...top, __geometry: pick(f, "geometry", "location") };
 }
 
 export function coordsOf(o: Obj): { lat: number; lon: number } | null {
@@ -95,6 +115,8 @@ export interface GeocodeCandidate {
   score?: number;
   city?: string;
   inCity?: boolean;
+  /** Esri match type, e.g. "PointAddress", "StreetAddress", "StreetName" (street only, no house number) */
+  matchType?: string;
 }
 
 export function parseGeocode(payload: unknown, input: string): GeocodeCandidate[] {
@@ -111,6 +133,7 @@ export function parseGeocode(payload: unknown, input: string): GeocodeCandidate[
       score: num(pick(r, "score", "confidence", "match_score")),
       city: str(pick(r, "city", "municipality", "place", "jurisdiction")),
       inCity: typeof inCityRaw === "boolean" ? inCityRaw : undefined,
+      matchType: str(pick(r, "match_type", "matchType", "addr_type", "Addr_type")),
     });
   }
   out.sort((a, b) => (b.score ?? 0) - (a.score ?? 0));
@@ -125,6 +148,7 @@ export function inGlendaleBBox(lat: number, lon: number): boolean {
 }
 
 const ZONE_KEYS = [
+  "zone_distr", // live Glendale field (verified 2026-11-14), e.g. "DSP/CC", "C3 III PPD", "IMU R"
   "zone", "zoning", "zone_code", "zonecode", "zoning_code", "zoningcode", "zone_class", "zoneclass",
   "zone_name", "zoning_district", "district", "zone_", "zn", "zoning_designation", "code",
 ];
@@ -133,7 +157,10 @@ export function parseZoning(payload: unknown): { code: string | null; raw?: Reco
   const recs = recordsOf(payload);
   const rec = recs.find((r) => Object.keys(r).length > 0);
   if (!rec) return { code: null };
-  const raw: Record<string, unknown> = { ...rec };
+  // raw = the source attributes only (live: features[0].attributes)
+  const feats = isObj(payload) ? pick(payload, "features") : undefined;
+  const firstAttrs = Array.isArray(feats) && isObj(feats[0]) ? pick(feats[0] as Obj, "attributes", "properties") : undefined;
+  const raw: Record<string, unknown> = isObj(firstAttrs) ? { ...firstAttrs } : { ...rec };
   delete raw.__geometry;
   let code = str(pick(rec, ...ZONE_KEYS));
   if (!code) {
@@ -187,7 +214,67 @@ function detailOf(v: unknown): string | undefined {
   return typeof d === "string" || typeof d === "number" ? String(d) : undefined;
 }
 
+const LIVE_HAZARD_LAYERS: Record<string, HazardKind> = {
+  wildfire: "wildfire",
+  flood: "flood",
+  fault: "seismic",
+  liquefaction: "seismic",
+  landslide: "seismic",
+  dam_inundation: "dam_inundation",
+  // debris_flow (USGS post-fire) has no HazardKind in the contract; ignored.
+};
+const SEISMIC_LABEL: Record<string, string> = {
+  fault: "Earthquake fault zone",
+  liquefaction: "Liquefaction zone",
+  landslide: "Earthquake-induced landslide zone",
+};
+
+/**
+ * Live shape (verified 2026-11-14): { wildfire: {status, class_field, matches:[{attributes}]}, flood, fault,
+ * liquefaction, landslide, dam_inundation, debris_flow }. status is in_zone | not_in_zone | unavailable.
+ * Flood: FEMA returns status "in_zone" for every mapped polygon, including Zone X (minimal hazard).
+ * We report flood in_zone only for a Special Flood Hazard Area (SFHA_TF = "T", or zone A or V).
+ */
+function parseLiveHazards(payload: Obj): { kind: HazardKind; status: HazardStatus; detail?: string }[] | null {
+  const layers = Object.entries(payload).filter(
+    ([k, v]) => k in LIVE_HAZARD_LAYERS && isObj(v) && typeof (v as Obj).status === "string",
+  ) as [string, Obj][];
+  if (!layers.length) return null;
+  const rank = (x: HazardStatus) => (x === "in_zone" ? 2 : x === "not_in_zone" ? 1 : 0);
+  const found = new Map<HazardKind, { status: HazardStatus; detail?: string }>();
+  for (const [layer, v] of layers) {
+    const kind = LIVE_HAZARD_LAYERS[layer];
+    let status: HazardStatus =
+      v.status === "in_zone" ? "in_zone" : v.status === "not_in_zone" ? "not_in_zone" : "unavailable";
+    const m0 = Array.isArray(v.matches) && isObj(v.matches[0]) ? (pick(v.matches[0] as Obj, "attributes") as Obj | undefined) : undefined;
+    let detail: string | undefined;
+    if (kind === "flood" && m0) {
+      const zone = str(pick(m0, "FLD_ZONE"));
+      const sub = str(pick(m0, "ZONE_SUBTY"));
+      const sfha = str(pick(m0, "SFHA_TF"));
+      detail = zone ? `Zone ${zone}${sub ? ` (${sub.toLowerCase()})` : ""}` : undefined;
+      if (status === "in_zone" && !(sfha === "T" || /^[AV]/i.test(zone ?? ""))) status = "not_in_zone";
+    } else if (kind === "wildfire" && m0) {
+      const cf = str(v.class_field) ?? "FHSZ_Description";
+      const cls = pick(m0, cf);
+      if (cls != null) detail = String(cls);
+    } else if (kind === "seismic" && status === "in_zone") {
+      detail = SEISMIC_LABEL[layer];
+    }
+    const prev = found.get(kind);
+    if (!prev || rank(status) > rank(prev.status)) found.set(kind, { status, ...(detail ? { detail } : {}) });
+    else if (status === "in_zone" && prev.status === "in_zone" && detail) {
+      prev.detail = prev.detail ? `${prev.detail}; ${detail}` : detail;
+    }
+  }
+  return HAZARD_KINDS.map((kind) => ({ kind, status: "unavailable" as HazardStatus, ...found.get(kind) }));
+}
+
 export function parseHazards(payload: unknown): { kind: HazardKind; status: HazardStatus; detail?: string }[] {
+  if (isObj(payload)) {
+    const live = parseLiveHazards(payload);
+    if (live) return live;
+  }
   const found = new Map<HazardKind, { status: HazardStatus; detail?: string }>();
   const consider = (label: string, v: unknown) => {
     const kind = hazardKindOf(label);
@@ -253,7 +340,38 @@ function toResource(item: Obj, kind: ResourceKind, origin: { lat: number; lon: n
   return { kind, name, ...(address ? { address } : {}), distanceM: Math.round(d ?? 0) };
 }
 
+/** "GLENDALE HERITAGE GARDEN" to "Glendale Heritage Garden" (only for ALL-CAPS names). */
+export function titleCaseIfShouting(s: string): string {
+  if (s !== s.toUpperCase() || !/[A-Z]/.test(s)) return s;
+  return s.toLowerCase().replace(/(^|[\s\-/(&.])([a-z])/g, (_m, p: string, c: string) => p + c.toUpperCase());
+}
+
+function tidy(r: NearbyResource): NearbyResource {
+  let name = r.name;
+  let address = r.address;
+  // Beeline stops: name is just "SB Glendale"; the address carries the cross street ("SB Glendale NS Broadway").
+  if (r.kind === "bus_stops" && address) {
+    name = address;
+    address = undefined;
+  }
+  const out: NearbyResource = { kind: r.kind, name: titleCaseIfShouting(name), distanceM: r.distanceM };
+  if (address) out.address = titleCaseIfShouting(address);
+  return out;
+}
+
 export function parseNearby(payload: unknown, origin: { lat: number; lon: number }): NearbyResource[] {
+  // Live shape (verified 2026-11-14): { groups: [{ kind, status, results: [{ name, address, distance_m, attributes }] }] }
+  const groups = isObj(payload) ? pick(payload, "groups") : undefined;
+  if (Array.isArray(groups)) {
+    const grouped: NearbyResource[] = [];
+    for (const g of groups) {
+      if (!isObj(g) || !Array.isArray(g.results)) continue;
+      const kind = resourceKindOf(String(g.kind ?? g.title ?? ""));
+      if (!kind) continue;
+      for (const it of g.results) if (isObj(it)) { const r = toResource(it, kind, origin); if (r) grouped.push(tidy(r)); }
+    }
+    return grouped.sort((a, b) => a.distanceM - b.distanceM);
+  }
   const out: NearbyResource[] = [];
   const root = isObj(payload) ? (pick(payload, "results", "resources", "nearest", "data") ?? payload) : payload;
   if (isObj(root)) {
