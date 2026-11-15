@@ -154,6 +154,13 @@ h3,
 }
 
 /* ---------- landing ---------- */
+/* The header wordmark, scaled up; white so it reads on the dark hero. */
+.landing-wordmark {
+  font-size: clamp(2rem, 9vw, 6.5rem);
+  color: #fff;
+  line-height: 1;
+  white-space: nowrap;
+}
 .landing-btn {
   display: inline-flex;
   align-items: center;

@@ -138,8 +138,9 @@ export function Landing() {
     const mm = gsap.matchMedia();
     const ctx = gsap.context(() => {
       mm.add("(prefers-reduced-motion: no-preference)", () => {
-        // Hero: buttons rise in, gems drift.
-        gsap.from(".hero-cta [data-cta]", { y: 40, opacity: 0, scale: 0.9, duration: 0.9, stagger: 0.15, ease: "back.out(1.7)" });
+        // Hero: title drops in, buttons rise in, gems drift.
+        gsap.from(".hero-title", { y: -30, opacity: 0, scale: 0.92, duration: 0.9, ease: "power3.out" });
+        gsap.from(".hero-cta [data-cta]", { y: 40, opacity: 0, scale: 0.9, duration: 0.9, delay: 0.25, stagger: 0.15, ease: "back.out(1.7)" });
         gsap.from(".scroll-cue", { opacity: 0, y: -10, delay: 0.9, duration: 0.6 });
         gsap.to(".scroll-cue-arrow", { y: 8, repeat: -1, yoyo: true, duration: 0.8, ease: "sine.inOut" });
         gsap.utils.toArray<HTMLElement>(".float-gem").forEach((el, i) => {
@@ -212,7 +213,12 @@ export function Landing() {
           <Gem className="float-gem absolute bottom-[16%] left-[18%] h-12 w-12 opacity-20" />
           <Gem className="float-gem absolute bottom-[12%] right-[16%] h-24 w-24 opacity-25 sm:h-32 sm:w-32" />
         </div>
-        <h1 className="sr-only">Glendale2Biz</h1>
+        <h1 className="hero-title relative z-10 mb-10 flex items-center gap-3 sm:mb-12 sm:gap-5" aria-label="Glendale2Biz">
+          <Gem className="h-11 w-11 shrink-0 sm:h-24 sm:w-24" />
+          <span className="wordmark landing-wordmark" aria-hidden="true">
+            Glendale<span className="wordmark-two">2</span>Biz
+          </span>
+        </h1>
         <CtaButtons lt={lt} className="hero-cta relative z-10 w-full max-w-2xl" />
         <a href="#learn" className="scroll-cue absolute bottom-6 flex flex-col items-center gap-1 text-sm font-semibold text-white/80">
           {lt(T.scroll)}
