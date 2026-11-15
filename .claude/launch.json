@@ -1,0 +1,12 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "glendale2biz-live",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["next", "dev", "-p", "3000"],
+      "env": { "GIS_MODE": "live" },
+      "port": 3000
+    }
+  ]
+}
