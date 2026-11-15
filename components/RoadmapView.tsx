@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { ROADMAP_PHASES, type Roadmap } from "@/lib/contracts";
 import { useT } from "@/lib/i18n";
+import { localizeAgency, localizeEstimate } from "@/lib/rules";
 
 const PHASE_COLOR: Record<string, string> = {
   plan: "var(--color-sapphire)",
@@ -12,7 +13,7 @@ const PHASE_COLOR: Record<string, string> = {
 };
 
 export function RoadmapView({ roadmap, storageKey }: { roadmap: Roadmap; storageKey: string }) {
-  const { d, lt, fmt } = useT();
+  const { d, lt, fmt, locale } = useT();
   const [done, setDone] = useState<Set<string>>(new Set());
 
   useEffect(() => {
@@ -142,18 +143,18 @@ export function RoadmapView({ roadmap, storageKey }: { roadmap: Roadmap; storage
                           <dl className="mt-3 grid grid-cols-1 gap-x-4 gap-y-1 text-sm sm:grid-cols-3">
                             <div>
                               <dt className="inline font-semibold text-ink-soft">{d.agency}: </dt>
-                              <dd className="inline">{s.agency}</dd>
+                              <dd className="inline">{localizeAgency(s.agency, locale)}</dd>
                             </div>
                             {s.costEstimate ? (
                               <div>
                                 <dt className="inline font-semibold text-ink-soft">{d.cost}: </dt>
-                                <dd className="inline">{s.costEstimate}</dd>
+                                <dd className="inline">{localizeEstimate(s.id, "cost", locale, s.costEstimate) ?? s.costEstimate}</dd>
                               </div>
                             ) : null}
                             {s.timeEstimate ? (
                               <div>
                                 <dt className="inline font-semibold text-ink-soft">{d.time}: </dt>
-                                <dd className="inline">{s.timeEstimate}</dd>
+                                <dd className="inline">{localizeEstimate(s.id, "time", locale, s.timeEstimate) ?? s.timeEstimate}</dd>
                               </div>
                             ) : null}
                           </dl>

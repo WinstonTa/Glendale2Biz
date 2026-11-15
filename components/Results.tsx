@@ -3,7 +3,7 @@
 import dynamic from "next/dynamic";
 import type { ApiErrorCode, HazardStatus, SiteCheckResponse, VerdictStatus } from "@/lib/contracts";
 import { useT } from "@/lib/i18n";
-import { DISCLAIMER } from "@/lib/rules";
+import { DISCLAIMER, localizeHazardDetail } from "@/lib/rules";
 import { DEMO_ADDRESSES } from "./data";
 
 const SiteMap = dynamic(() => import("./SiteMap"), {
@@ -83,7 +83,7 @@ export function SiteResults({
   onPickCandidate: (address: string) => void;
   onEditLocation: () => void;
 }) {
-  const { d, lt } = useT();
+  const { d, lt, locale } = useT();
 
   if (state.status === "idle") return null;
 
@@ -213,7 +213,7 @@ export function SiteResults({
                 >
                   <span aria-hidden="true">{h.status === "in_zone" ? "▲" : h.status === "not_in_zone" ? "✓" : "–"}</span>
                   {lt(h.label)}: {d.hazard[h.status]}
-                  {h.detail && h.status === "in_zone" ? <span className="font-normal">({h.detail})</span> : null}
+                  {h.detail && h.status === "in_zone" ? <span className="font-normal">({localizeHazardDetail(h.detail, locale) ?? h.detail})</span> : null}
                 </li>
               ))}
             </ul>

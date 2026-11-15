@@ -1,4 +1,5 @@
-import type { LocalizedText } from "@/lib/contracts";
+import type { Locale, LocalizedText } from "@/lib/contracts";
+import { localizeAgency, localizeHazardDetail } from "@/lib/rules";
 import { ROADMAP_PHASES } from "@/lib/contracts";
 import type { GeneratedDoc, DocInput, DocSection } from "./types";
 import { L, same, valueOr, businessName, businessAddress, VERDICT_LABEL, STRUCTURE_LABEL, localizedDate } from "./common";
@@ -76,7 +77,11 @@ export function buildLaunchSummary(input: DocInput): GeneratedDoc {
     sections.push({
       heading: L("Hazard zones", "Zonas de riesgo", "Վտանգի գոտիներ"),
       bullets: inZone.length
-        ? inZone.map((h) => (h.detail ? { en: `${h.label.en} (${h.detail})`, es: `${h.label.es} (${h.detail})`, hy: `${h.label.hy} (${h.detail})` } : h.label))
+        ? inZone.map((h) => {
+            if (!h.detail) return h.label;
+            const det = (loc: Locale) => localizeHazardDetail(h.detail, loc) ?? h.detail;
+            return { en: `${h.label.en} (${det("en")})`, es: `${h.label.es} (${det("es")})`, hy: `${h.label.hy} (${det("hy")})` };
+          })
         : [L("Not in any checked hazard zone.", "No está en ninguna de las zonas de riesgo revisadas.", "Ստուգված վտանգի գոտիներից ոչ մեկում չէ։")],
     });
   }
@@ -88,9 +93,9 @@ export function buildLaunchSummary(input: DocInput): GeneratedDoc {
     sections.push({
       heading: { en: `${PHASE[phase].en}: required steps`, es: `${PHASE[phase].es}: pasos obligatorios`, hy: `${PHASE[phase].hy}․ պարտադիր քայլեր` },
       checklist: items.map((s) => ({
-        en: `${s.title.en} (${s.agency})`,
-        es: `${s.title.es} (${s.agency})`,
-        hy: `${s.title.hy} (${s.agency})`,
+        en: `${s.title.en} (${localizeAgency(s.agency, "en")})`,
+        es: `${s.title.es} (${localizeAgency(s.agency, "es")})`,
+        hy: `${s.title.hy} (${localizeAgency(s.agency, "hy")})`,
       })),
     });
   }
