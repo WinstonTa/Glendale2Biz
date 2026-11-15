@@ -7,3 +7,4 @@ export { buildRoadmap, SOURCES } from "./roadmap";
 export { t, L } from "./text";
 export { evaluateZoning, zoneFamily, zoneName, normalizeZoneCode, DISCLAIMER, ZONE_MATRIX, ZONE_NAMES } from "./zoning";
 export type { ZoneFamily } from "./zoning";
+export { localizeEstimate, localizeEstimateText, localizeAgency, localizeHazardDetail } from "./localize";
