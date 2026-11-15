@@ -2,7 +2,7 @@
 
 **Glendale2Biz helps aspiring small-business owners in Glendale, California answer the first question every founder has: "Can I open *this* business at *this* address — and what do I do next?"** In English, Español, and Հայերեն.
 
-Built at **Jewel City Hacks 6.0** (2026-11-14). **Live:** https://glendale2biz.vercel.app/
+Built at **Jewel City Hacks 6.0** (2026-11-14). **Live:** https://glendale2biz.vercel.app/ · **App:** https://glendale2biz.vercel.app/demo
 
 ## What it does
 

@@ -5,8 +5,11 @@
 Every claim below was checked against production at freeze time.
 
 **Links for Devpost**
-- Demo: https://glendale2biz.vercel.app/
+- Site: https://glendale2biz.vercel.app/ (landing page: "Try out the demo!" and "See the project on Github!", with a GSAP scroll story below)
+- App: https://glendale2biz.vercel.app/demo
 - Code: https://github.com/WinstonTa/Glendale2Biz
+
+_Post-freeze addition, approved by the owner at about 4:20 PM: the landing page (`f0a43a5`, `bb93106`, `0dca4e3`). The founder flow moved to `/demo`, unchanged._
 
 ## Devpost fields
 
@@ -46,7 +49,7 @@ Validate the zoning matrix with the City of Glendale Planning Division. Have nat
 ## 2-minute demo script
 
 1. **Hook (15 s):** "Every year, Glendale founders sign leases for spaces where their business isn't even allowed. Glendale2Biz answers that question in 10 seconds, in their language."
-2. **Switch to Հայերեն (10 s)**, then back to English. Point out that the whole app is trilingual.
+2. **Landing page (10 s):** scroll once to show the story, then click "Try out the demo!". **Switch to Հայերեն**, then back to English. Point out that the whole app is trilingual.
 3. **Type "boba tea shop", then 613 E Broadway (30 s):** point to the "Live City of Glendale GIS" badge, the verdict, the Downtown Specific Plan zone, the map and nearby.
 4. **Same shop at 1200 Cleveland Rd (10 s):** residential, likely not allowed, and the roadmap adapts.
 5. **2900 Honolulu Ave (10 s):** a Very High wildfire zone and a liquefaction zone, which matter for insurance and build-out.
