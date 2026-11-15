@@ -185,8 +185,20 @@ const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
  */
 export function evaluateZoning(rawCode: string | null | undefined, b: BusinessType): Verdict {
   const fam = zoneFamily(rawCode);
-  const code = normalizeZoneCode(rawCode) ?? "?";
+  const code = normalizeZoneCode(rawCode);
   const notes: LocalizedText[] = [];
+
+  if (!fam && !code) {
+    return {
+      status: "unknown",
+      summary: L(
+        `We couldn't find zoning for this address — ask Glendale Planning whether ${aOrAn(b.name.en)} is allowed here.`,
+        `No encontramos la zonificación de esta dirección. Pregunte a Planificación de Glendale si se permite un negocio “${b.name.es}” aquí.`,
+        `Այս հասցեի գոտիավորումը չգտանք․ հարցրեք Գլենդեյլի Պլանավորման բաժնին՝ արդյոք այստեղ թույլատրվում է «${b.name.hy}»։`,
+      ),
+      notes: [],
+    };
+  }
 
   if (!fam) {
     return {
