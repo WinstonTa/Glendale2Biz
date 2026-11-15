@@ -4,6 +4,71 @@ Rounds are appended newest first. Severity: **P0** breaks the demo · **P1** vis
 
 ---
 
+## Round 2 — 2026-11-14 ~16:15 PT (production smoke test, live GIS, HEAD `832bed0`)
+
+**How it was tested**
+- The UI was driven in the Claude desktop **built-in browser** (Chromium 156) on https://glendale2biz.vercel.app/. Text was read with `get_page_text` and DOM queries, plus a few screenshots.
+- The API matrix ran through a Node `fetch` script (`POST /api/site-check`, locale `es`).
+- `npm test` and `npm run typecheck` ran on a clean `git archive` snapshot of `832bed0`. **Both pass: 7 files, 213 / 213.**
+- Per the architect, `npm run build` was not run.
+
+### Results
+
+| Area | Result |
+| --- | --- |
+| API, live (`meta.dataSource: "live"`, about 0.5 s each) | 613 E Broadway, cafe: **allowed, DSP/CC**<br>4500 San Fernando Rd, cafe: **conditional, IMU R**<br>1200 Cleveland Rd, cafe: **not_allowed, R1 I**<br>2900 Honolulu Ave, cafe: **allowed, C1**, wildfire in_zone (Very High) and seismic in_zone (Liquefaction zone)<br>salon at 613 E Broadway: allowed<br>auto_repair at 4500 San Fernando Rd: conditional<br>software_startup at 1200 Cleveland Rd: conditional (home occupation)<br>11 nearby results each |
+| API errors | `asdf qwer`: 404 `ADDRESS_NOT_FOUND`<br>`613 Broadway`: 409 `AMBIGUOUS_ADDRESS` with candidates 613 E and 613 W Broadway<br>Burbank 91502: 422 `OUTSIDE_GLENDALE`<br>`""` and `"   "`: 400 `BAD_REQUEST` |
+| UI, demo flow | Cafe at 613 E Broadway and 4500 San Fernando Rd (ES), and 2900 Honolulu Ave (HY), all from demo chips. Each shows the **"Live City of Glendale GIS"** badge (never "Demo data"), the verdict with disclaimer, matched address, zoning code and name, map, 4 hazards, the nearby list, and the roadmap (15 steps). The conditional site shows the CUP step and the CUP note.<br>1200 Cleveland Rd, salon and auto_repair were API-only, not clicked through in the UI. |
+| Languages | **ES:** the whole results page, including agency, cost, time and hazard chips, is translated. Only the proper nouns from GIS are English.<br>**HY:** `<html lang="hy">`; the Noto Sans Armenian font is loaded (`document.fonts.check` returns true); the screenshot shows Armenian rendering with no missing-glyph boxes; hazard details are localized ("Շատ բարձր", "Հողի հեղուկացման գոտի").<br>The only leftover English is the document date (see P2-8). |
+| Mobile, 375 × 812 | `scrollWidth` = `clientWidth` = 375, so no horizontal scroll (Leaflet tiles are clipped inside the map). The screenshot reads cleanly. Buttons are usable; "Official page" links are 26 px tall (P2-10). |
+| Home-based path (software_startup) | The home note appears and the roadmap renders (10 steps: C-corp DE/CA, EIN, 83(b), home occupation permit…). |
+| "Not decided" path | The "no location yet" note appears and the roadmap renders (13 steps). |
+| UI error paths | Empty input: the inline "Enter an address…" message.<br>`asdf qwer`: friendly not-found message.<br>`613 Broadway`: two candidate chips; **clicking "613 W BROADWAY" loads its result.**<br>Burbank: friendly outside-Glendale message.<br>No crashes. |
+| Document prep | Filled the business name and opened all 3 documents. Each shows the not-legal-advice banner, and the name was filled in. **Copy text** changes to "Copied". |
+| Print CSS | Not run in print media, because the pane can't emulate it. The CSS rules look right: header and no-print elements are hidden; the roadmap print hides the docs section; a document print (`html[data-print="doc"]`) hides everything except the document; link URLs are appended. |
+| Console | Only 3 resource lines (409, 404, 422) from my own error-path tests, which is expected. No JavaScript errors. |
+
+### Bugs
+
+**P0:** none.
+
+**P1-2: Generated documents carry tomorrow's date after 4 PM PT**
+- Where: `components/docs/DocsSection.tsx:252`, `new Date().toISOString().slice(0, 10)` (a UTC date).
+- Actual: at about 16:10 PT on Nov 14, the zoning inquiry "Date" field and the launch summary "Prepared …" both say **November 15, 2026**.
+- Repro: any flow, then Prepare my documents.
+- Expected: the founder's local date.
+- Suggested fix: `new Date().toLocaleDateString("en-CA")`, or format with `timeZone: "America/Los_Angeles"`.
+- This will show during the demo, after 4 PM.
+
+**P2-7: Unknown-zone summary says zone "?"**
+- Where: `lib/rules/zoning.ts`, in `evaluateZoning` (`normalizeZoneCode(rawCode) ?? "?"`).
+- Repro: `613 Broadway`, then pick 613 W BROADWAY. The live zoning comes back null.
+- Actual: "We don't have a rule for zone “?” yet…"
+- Expected: when the code is null, use separate wording such as "We couldn't find zoning for this parcel…".
+
+**P2-8: Armenian dates fall back to English in this browser**
+- Where: `lib/docs/common.ts:47` (`formatDate`), which relies on `Intl` support for `hy-AM`.
+- Cause: in the built-in Chromium, `Intl.DateTimeFormat('hy-AM').resolvedOptions().locale` is `en-US`, so HY documents show "November 15, 2026". Node prints Armenian. Desktop Chrome was not checked.
+- Suggested fix: hard-code the Armenian month names.
+
+**P2-9: Inconsistent zone code formatting**
+- The zoning card shows the raw code ("IMU R", "R1 I"), while the verdict summary shows the normalized one ("IMU-R"). Cosmetic.
+
+**P2-10: Small touch targets**
+- "Official page" links and the stepper chips are 26–28 px tall at 375 px width, under the ~44 px recommendation. Usable.
+
+**P2-11: Odd nearby entry from live data**
+- At 613 E Broadway the first nearby item is "City Hall — Park — 0 ft", a quirk of the GIS parks layer. Leave as is, or filter out 0-ft park entries.
+
+**Not fixed, not urgent:** server `meta.warnings` strings are English-only. For example, the San Fernando Rd lookup returns "Address matched more than one place…". The UI does not show this warning in live mode, so users never see it.
+
+### Not run and why
+- **Print preview:** could not emulate print media, and clicking Print opens the native dialog. Only the CSS was inspected.
+- **Desktop Chrome, Safari or a real phone:** not tested.
+- **Every business type in the UI:** only cafe and software_startup were clicked through. salon, auto_repair and the 1200 Cleveland Rd verdict were checked through the API only.
+
+---
+
 ## Round 1b — 2026-11-14 ~16:00 PT (reviewed through `c494457`)
 
 Commands were run on a clean `git archive` snapshot of `c494457`. Per the architect, `npm run build` was **not run**, because the shared `.next` folder would collide with the dev server.
