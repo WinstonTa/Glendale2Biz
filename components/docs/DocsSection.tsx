@@ -249,7 +249,8 @@ export function DocsSection({
 
   const set = <K extends keyof DocFormInput>(k: K) => (v: DocFormInput[K]) => setForm((f) => ({ ...f, [k]: v }));
 
-  const today = useMemo(() => new Date().toISOString().slice(0, 10), []);
+  // Local calendar date (en-CA formats as YYYY-MM-DD); toISOString() would give the UTC date.
+  const today = useMemo(() => new Date().toLocaleDateString("en-CA"), []);
   const docs = useMemo(
     () => generateDocuments({ form, businessTypeId, locationMode, site, roadmap, today }),
     [form, businessTypeId, locationMode, site, roadmap, today],

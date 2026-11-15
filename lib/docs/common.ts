@@ -44,11 +44,20 @@ export function businessAddress(input: DocInput): string {
   return input.form.mailingAddress.trim();
 }
 
+const HY_MONTHS = [
+  "հունվարի", "փետրվարի", "մարտի", "ապրիլի", "մայիսի", "հունիսի",
+  "հուլիսի", "օգոստոսի", "սեպտեմբերի", "հոկտեմբերի", "նոյեմբերի", "դեկտեմբերի",
+];
+
 export function formatDate(iso: string, locale: Locale): string {
   if (!iso) return "";
   const d = new Date(`${iso.slice(0, 10)}T12:00:00Z`);
   if (Number.isNaN(d.getTime())) return iso;
-  const tag = locale === "hy" ? "hy-AM" : locale === "es" ? "es-US" : "en-US";
+  if (locale === "hy") {
+    // Some browsers ship without Armenian Intl data and silently fall back to English.
+    return `${d.getUTCDate()} ${HY_MONTHS[d.getUTCMonth()]}, ${d.getUTCFullYear()} թ.`;
+  }
+  const tag = locale === "es" ? "es-US" : "en-US";
   try {
     return new Intl.DateTimeFormat(tag, { year: "numeric", month: "long", day: "numeric", timeZone: "UTC" }).format(d);
   } catch {
