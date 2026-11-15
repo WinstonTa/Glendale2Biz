@@ -1,24 +1,108 @@
 {
-  "aliases": ["1200 cleveland rd"],
+  "_source": "Mirrors live Glendale GIS MCP response recorded 2026-11-14T23:54:08.677Z (lib/gis/fixtures/live/1200-cleveland-rd.json)",
+  "aliases": [
+    "1200 cleveland rd"
+  ],
   "street": "cleveland",
-  "matched": "1200 CLEVELAND RD, GLENDALE, CA 91202",
-  "lat": 34.1688,
-  "lon": -118.2655,
-  "score": 97,
+  "matched": "1200 CLEVELAND RD, GLENDALE, CA, 91202",
+  "lat": 34.1647200000011,
+  "lon": -118.27911150000214,
+  "score": 100,
   "zoning": {
-    "code": "R1",
-    "raw": { "ZONE": "R1", "ZONE_DESC": "Low Density Residential", "_note": "mock fixture; field names not yet confirmed against live data" }
+    "code": "R1 I",
+    "raw": {
+      "OBJECTID": 2163,
+      "ZONENUM": 310,
+      "ZONE_DISTR": "R1 I",
+      "ZONE_DESC": "LOW DENSITY RESIDENTIAL FAR DIST I",
+      "GENPLAN": 310,
+      "GPLANDESC": "LOW DENSITY",
+      "Type": 300
+    }
   },
   "hazards": [
-    { "kind": "wildfire", "status": "in_zone", "detail": "Very High Fire Hazard Severity Zone (demo)" },
-    { "kind": "flood", "status": "not_in_zone", "detail": "Zone X" },
-    { "kind": "seismic", "status": "not_in_zone" },
-    { "kind": "dam_inundation", "status": "not_in_zone" }
+    {
+      "kind": "wildfire",
+      "status": "not_in_zone",
+      "detail": "NonWildland"
+    },
+    {
+      "kind": "flood",
+      "status": "not_in_zone",
+      "detail": "Zone X (area of minimal flood hazard)"
+    },
+    {
+      "kind": "seismic",
+      "status": "not_in_zone"
+    },
+    {
+      "kind": "dam_inundation",
+      "status": "not_in_zone"
+    }
   ],
   "nearby": [
-    { "kind": "bus_stops", "name": "Kenneth Rd (demo stop)", "distanceM": 450 },
-    { "kind": "schools", "name": "Elementary school (demo)", "distanceM": 800 },
-    { "kind": "parks", "name": "Brand Park", "address": "1601 W Mountain St", "distanceM": 1500 },
-    { "kind": "fire_stations", "name": "Glendale fire station (demo)", "distanceM": 1600 }
+    {
+      "kind": "parks",
+      "name": "Pelanconi Park",
+      "distanceM": 174,
+      "address": "1000 Grandview Ave"
+    },
+    {
+      "kind": "bus_stops",
+      "name": "WB Glenoaks FS Graynold",
+      "distanceM": 195
+    },
+    {
+      "kind": "bus_stops",
+      "name": "EB Glenoaks NS Grandview",
+      "distanceM": 246
+    },
+    {
+      "kind": "schools",
+      "name": "Mark Keppel Elementary",
+      "distanceM": 608,
+      "address": "730 Glenwood Road"
+    },
+    {
+      "kind": "schools",
+      "name": "Eleanor J. Toll Middle School",
+      "distanceM": 759,
+      "address": "700 Glenwood Road"
+    },
+    {
+      "kind": "libraries",
+      "name": "Grandview Library",
+      "distanceM": 879,
+      "address": "1535 Fifth St"
+    },
+    {
+      "kind": "parks",
+      "name": "Griffith Manor Park",
+      "distanceM": 1156,
+      "address": "1551 Flower St"
+    },
+    {
+      "kind": "fire_stations",
+      "name": "Fire Station 27",
+      "distanceM": 1241,
+      "address": "1127 Western Ave."
+    },
+    {
+      "kind": "libraries",
+      "name": "Brand Library & Art Center",
+      "distanceM": 1995,
+      "address": "1601 W Mountain St"
+    },
+    {
+      "kind": "fire_stations",
+      "name": "Fire Station 26",
+      "distanceM": 2189,
+      "address": "1145 N. Brand Blvd."
+    },
+    {
+      "kind": "police_stations",
+      "name": "Glendale Police Department",
+      "distanceM": 3301
+    }
   ]
 }

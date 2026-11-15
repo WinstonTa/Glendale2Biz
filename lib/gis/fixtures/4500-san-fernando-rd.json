@@ -1,25 +1,108 @@
 {
-  "aliases": ["4500 san fernando rd"],
+  "_source": "Mirrors live Glendale GIS MCP response recorded 2026-11-14T23:54:08.448Z (lib/gis/fixtures/live/4500-san-fernando-rd.json)",
+  "aliases": [
+    "4500 san fernando rd"
+  ],
   "street": "san fernando",
-  "matched": "4500 SAN FERNANDO RD, GLENDALE, CA 91204",
-  "lat": 34.1305,
-  "lon": -118.2615,
-  "score": 98,
+  "matched": "4500 SAN FERNANDO RD, GLENDALE, CA, 91204",
+  "lat": 34.1336160000011,
+  "lon": -118.26234450000213,
+  "score": 100,
   "zoning": {
-    "code": "IMU",
-    "raw": { "ZONE": "IMU", "ZONE_DESC": "Industrial/Commercial Mixed Use", "_note": "mock fixture; field names not yet confirmed against live data" }
+    "code": "IMU R",
+    "raw": {
+      "OBJECTID": 1743,
+      "ZONENUM": 760,
+      "ZONE_DISTR": "IMU R",
+      "ZONE_DESC": "INDUSTRIAL / COMMERCIAL RESIDENTIAL MIXED USE",
+      "GENPLAN": 760,
+      "GPLANDESC": "MIXED USE",
+      "Type": 700
+    }
   },
   "hazards": [
-    { "kind": "wildfire", "status": "not_in_zone" },
-    { "kind": "flood", "status": "not_in_zone", "detail": "Zone X" },
-    { "kind": "seismic", "status": "in_zone", "detail": "Liquefaction zone (demo)" },
-    { "kind": "dam_inundation", "status": "not_in_zone" }
+    {
+      "kind": "wildfire",
+      "status": "not_in_zone",
+      "detail": "NonWildland"
+    },
+    {
+      "kind": "flood",
+      "status": "not_in_zone",
+      "detail": "Zone X (area of minimal flood hazard)"
+    },
+    {
+      "kind": "seismic",
+      "status": "not_in_zone"
+    },
+    {
+      "kind": "dam_inundation",
+      "status": "not_in_zone"
+    }
   ],
   "nearby": [
-    { "kind": "bus_stops", "name": "San Fernando Rd & Los Feliz Rd", "distanceM": 180 },
-    { "kind": "parks", "name": "Neighborhood park (demo)", "distanceM": 900 },
-    { "kind": "schools", "name": "Elementary school (demo)", "distanceM": 1100 },
-    { "kind": "fire_stations", "name": "Glendale fire station (demo)", "distanceM": 1300 },
-    { "kind": "police_stations", "name": "Glendale Police Department", "address": "131 N Isabel St", "distanceM": 2900 }
+    {
+      "kind": "bus_stops",
+      "name": "SB San Fernando NS Chevy Chase",
+      "distanceM": 32
+    },
+    {
+      "kind": "bus_stops",
+      "name": "NB San Fernando NS Chevy Chase",
+      "distanceM": 35
+    },
+    {
+      "kind": "parks",
+      "name": "Pacific Park & Community Center",
+      "distanceM": 608,
+      "address": "501 S Pacific Ave"
+    },
+    {
+      "kind": "libraries",
+      "name": "Pacific Park Library",
+      "distanceM": 716,
+      "address": "501 S Pacific Ave"
+    },
+    {
+      "kind": "schools",
+      "name": "Pacific Ave Education Center",
+      "distanceM": 739,
+      "address": "440 W Lomita Ave"
+    },
+    {
+      "kind": "schools",
+      "name": "Thomas Edison Elementary",
+      "distanceM": 791,
+      "address": "435 South Pacific Ave"
+    },
+    {
+      "kind": "fire_stations",
+      "name": "Fire Station 22",
+      "distanceM": 930,
+      "address": "1201 S. Glendale Ave."
+    },
+    {
+      "kind": "fire_stations",
+      "name": "Fire Station 21",
+      "distanceM": 1131,
+      "address": "421 Oak Street"
+    },
+    {
+      "kind": "parks",
+      "name": "Harvard Mini Park",
+      "distanceM": 1185,
+      "address": "425 W Harvard St"
+    },
+    {
+      "kind": "libraries",
+      "name": "Central Library",
+      "distanceM": 1409,
+      "address": "222 E Harvard St"
+    },
+    {
+      "kind": "police_stations",
+      "name": "Glendale Police Department",
+      "distanceM": 1859
+    }
   ]
 }
