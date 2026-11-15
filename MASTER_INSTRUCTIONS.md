@@ -198,7 +198,7 @@ The owner **explicitly authorized direct-to-`main`** for this sprint. Everything
 | Phase | Doc | Status |
 | --- | --- | --- |
 | 0 — Ideation & scope | [docs/phases/PHASE_0_IDEATION.md](docs/phases/PHASE_0_IDEATION.md) | ✅ done |
-| 1 — MVP build | `docs/phases/PHASE_1_MVP.md` | to be written at kickoff |
-| 2 — Integration & deploy | `docs/phases/PHASE_2_DEPLOY.md` | — |
-| 3 — Stretch (doc prep, tech track, voice) | `docs/phases/PHASE_3_STRETCH.md` | — |
-| 4 — Submission | `docs/phases/PHASE_4_SUBMISSION.md` | — |
+| 1 — MVP build | [docs/phases/PHASE_1_MVP.md](docs/phases/PHASE_1_MVP.md) | ✅ done |
+| 2 — Integration & deploy | [docs/phases/PHASE_2_DEPLOY.md](docs/phases/PHASE_2_DEPLOY.md) | ✅ live at https://glendale2biz.vercel.app/ |
+| 3 — Stretch (doc prep, localization; voice skipped) | [docs/phases/PHASE_3_STRETCH.md](docs/phases/PHASE_3_STRETCH.md) | ✅ done |
+| 4 — Submission | [docs/phases/PHASE_4_SUBMISSION.md](docs/phases/PHASE_4_SUBMISSION.md) | drafted; QA round 2 in progress |
