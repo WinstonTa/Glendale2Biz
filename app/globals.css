@@ -153,6 +153,63 @@ h3,
   pointer-events: none;
 }
 
+/* ---------- landing ---------- */
+.landing-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7rem;
+  min-height: 4rem;
+  padding: 0 1.9rem;
+  border-radius: 1rem;
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  /* `translate` (not `transform`) so hover never fights GSAP's transform tweens */
+  transition: translate 160ms, box-shadow 160ms, background-color 160ms;
+}
+.landing-btn:hover {
+  translate: 0 -3px;
+}
+.landing-btn-primary {
+  background: var(--color-topaz);
+  color: var(--color-ink);
+  box-shadow: 0 10px 30px -10px color-mix(in srgb, var(--color-topaz) 70%, transparent);
+}
+.landing-btn-primary:hover {
+  box-shadow: 0 16px 40px -12px color-mix(in srgb, var(--color-topaz) 85%, transparent);
+}
+.landing-btn-github {
+  background: #fff;
+  color: var(--color-ink);
+  box-shadow: 0 10px 30px -14px rgb(0 0 0 / 0.45);
+}
+.final-cta .landing-btn-github {
+  background: var(--color-ink);
+  color: #fff;
+}
+.landing-kicker {
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-sapphire);
+}
+.landing-shot {
+  overflow: hidden;
+  border-radius: 1.25rem;
+  border: 1px solid var(--color-line);
+  background: var(--color-card);
+  box-shadow: 0 30px 60px -30px rgb(8 69 54 / 0.45);
+}
+.landing-shot img {
+  display: block;
+  width: 100%;
+  height: auto;
+  transform: scale(1.08);
+}
+
 /* ---------- shared controls ---------- */
 .btn {
   display: inline-flex;
