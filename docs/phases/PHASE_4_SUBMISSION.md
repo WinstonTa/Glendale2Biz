@@ -1,6 +1,12 @@
-# Phase 4 — Submission kit (5:30–6:00 PM PT)
+# Phase 4 — Submission kit
 
-Draft by the architect. **Before you paste anything, check each claim against what is actually deployed and verified.** Delete any line that isn't true at submission time (for example "live GIS" if we end up demoing in mock mode).
+**Code freeze: 4:18 PM PT, commit `895664e`.** Production at https://glendale2biz.vercel.app/ runs live City of Glendale GIS and was smoke-tested by QA (round 2, `docs/qa/QA_REPORT.md`). After the freeze, only demo-breaking fixes go in.
+
+Every claim below was checked against production at freeze time.
+
+**Links for Devpost**
+- Demo: https://glendale2biz.vercel.app/
+- Code: https://github.com/WinstonTa/Glendale2Biz
 
 ## Devpost fields
 
@@ -15,7 +21,7 @@ Opening a small business in Glendale means piecing together zoning maps, city pe
 Pick a business type (or describe your idea) and enter a Glendale address. Glendale2Biz pulls the zoning, hazard zones, and nearby resources for that address from City of Glendale GIS data through the Glendale GIS MCP. It gives a plain-language verdict: likely allowed, needs a conditional use permit, or likely not allowed. Then it builds a personalized launch roadmap from Plan → Register → Permit → Open, with official links, costs, timelines, and *why each step applies to you*. Finally, it drafts the paperwork the founder takes to each agency: a pre-lease zoning inquiry to Glendale Planning, an LA County Fictitious Business Name worksheet, and a one-page launch summary. Everything works in English, Español, and Հայերեն.
 
 **How we built it**
-Next.js 15 + TypeScript on Vercel. A server-side route calls the hosted Glendale GIS MCP over MCP Streamable HTTP, geocoding first and then fetching zoning, hazards, and nearby resources in parallel. A deterministic rules engine turns the zone code and business type into a verdict and a roadmap. Document drafts come from pure template functions. Over 200 Vitest tests cover rules, i18n parity, the API handler, and the templates. One human and four AI agents (architect, frontend, backend, QA) built it in parallel against a shared typed contract, with QA reviewing every commit.
+Next.js 15 + TypeScript on Vercel. A server-side route calls the hosted Glendale GIS MCP over MCP Streamable HTTP, geocoding first and then fetching zoning, hazards, and nearby resources in parallel. A deterministic rules engine turns the zone code and business type into a verdict and a roadmap. We paged all 2,426 zoning features in the city's dataset and mapped every distinct zone code to a rule family, so any code we don't recognize returns "unknown" instead of a guess. Document drafts come from pure template functions. 213 Vitest tests cover rules, i18n parity, the API handler (replaying recorded live GIS sessions offline), and the templates. One human and four AI agents (architect, frontend, backend, QA) built it in parallel against a shared typed contract, with QA reviewing every commit.
 
 **Challenges**
 - Turning raw GIS responses into a trustworthy answer without overclaiming. Unknown zones say "unknown", every step links to an official source, and unconfirmed sources are flagged "confirm with agency".
@@ -41,15 +47,17 @@ Validate the zoning matrix with the City of Glendale Planning Division. Have nat
 
 1. **Hook (15 s):** "Every year, Glendale founders sign leases for spaces where their business isn't even allowed. Glendale2Biz answers that question in 10 seconds, in their language."
 2. **Switch to Հայերեն (10 s)**, then back to English. Point out that the whole app is trilingual.
-3. **Boba café at 613 E Broadway (35 s):** verdict, zoning code, map, hazards, nearby.
-4. **Same café at 1200 Cleveland Rd (15 s):** residential, likely not allowed, and the roadmap adapts.
-5. **Roadmap (20 s):** phases, "why this applies to you", official links, checkboxes, print.
-6. **Documents (20 s):** the pre-lease zoning inquiry, pre-filled and ready to send. "This is the legal-tech piece: it stops the most expensive mistake before it happens."
-7. **Close (5 s):** "Built on City of Glendale GIS data via MCP. Glendale2Biz: from idea to open doors."
+3. **Type "boba tea shop", then 613 E Broadway (30 s):** point to the "Live City of Glendale GIS" badge, the verdict, the Downtown Specific Plan zone, the map and nearby.
+4. **Same shop at 1200 Cleveland Rd (10 s):** residential, likely not allowed, and the roadmap adapts.
+5. **2900 Honolulu Ave (10 s):** a Very High wildfire zone and a liquefaction zone, which matter for insurance and build-out.
+6. **Roadmap (20 s):** phases, "why this applies to you", official links, checkboxes, print.
+7. **Documents (20 s):** the pre-lease zoning inquiry, pre-filled and ready to send. "This is the legal-tech piece: it stops the most expensive mistake before it happens."
+8. **Close (5 s):** "Built on City of Glendale GIS data via MCP. Glendale2Biz: from idea to open doors."
 
 ## Submission checklist
-- [ ] Production URL loads; the demo path works on a fresh browser and on a phone
+- [x] Production URL loads; the demo path works (QA round 2, Chromium desktop and 375 px). Not yet tried on a real phone; do that once yourself.
 - [ ] Repo is public (or judges have access): https://github.com/WinstonTa/Glendale2Biz
+- [ ] Before demoing, clear localStorage or use a private window, so saved checkboxes and the language choice start fresh
 - [ ] Demo video recorded (if Devpost requires one) and uploaded
 - [ ] Screenshots: landing, verdict, roadmap, document, and Armenian view
 - [ ] Every claim in the write-up matches what is deployed (live vs. mock)

@@ -201,4 +201,4 @@ The owner **explicitly authorized direct-to-`main`** for this sprint. Everything
 | 1 — MVP build | [docs/phases/PHASE_1_MVP.md](docs/phases/PHASE_1_MVP.md) | ✅ done |
 | 2 — Integration & deploy | [docs/phases/PHASE_2_DEPLOY.md](docs/phases/PHASE_2_DEPLOY.md) | ✅ live at https://glendale2biz.vercel.app/ |
 | 3 — Stretch (doc prep, localization; voice skipped) | [docs/phases/PHASE_3_STRETCH.md](docs/phases/PHASE_3_STRETCH.md) | ✅ done |
-| 4 — Submission | [docs/phases/PHASE_4_SUBMISSION.md](docs/phases/PHASE_4_SUBMISSION.md) | drafted; QA round 2 in progress |
+| 4 — Submission | [docs/phases/PHASE_4_SUBMISSION.md](docs/phases/PHASE_4_SUBMISSION.md) | 🧊 **code frozen at `895664e` (4:18 PM PT)**; QA round 2 passed on production; owner submits |
